@@ -14,7 +14,7 @@ The plugin should appear on Plugins page.
 
 Add Gradle tasks to your build stage.
 
-![Gradle task][screen.png]
+![Gradle task](screen.png)
 
 ## Options
 
