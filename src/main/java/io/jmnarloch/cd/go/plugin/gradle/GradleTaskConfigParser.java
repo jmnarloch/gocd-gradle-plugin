@@ -85,8 +85,10 @@ class GradleTaskConfigParser {
                 command.add("./gradlew");
             }
         } else {
+            final String gradleHome = getGradleHome();
+
             if (!StringUtils.isBlank(gradleHome)) {
-                command.add(new File(gradleHome, "gradle").getAbsolutePath());
+                command.add(new File(new File(gradleHome, "bin"), "gradle").getAbsolutePath());
             } else {
                 command.add("gradle");
             }
@@ -98,6 +100,17 @@ class GradleTaskConfigParser {
 
     public static GradleTaskConfigParser fromConfig(TaskConfig taskConfig) {
         return new GradleTaskConfigParser(taskConfig);
+    }
+
+    private String getGradleHome() {
+
+        if(!StringUtils.isBlank(gradleHome)) {
+            return gradleHome;
+        } else if(!StringUtils.isBlank(environment.get("GRADLE_HOME"))) {
+            return environment.get("GRADLE_HOME");
+        }
+
+        return null;
     }
 
     private boolean isPropertySet(String propertyKey) {
