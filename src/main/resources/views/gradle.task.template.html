@@ -1,4 +1,8 @@
 <div class="form_item_block">
+    <label for="tasks">Tasks:<span class="asterisk">*</span></label>
+    <input id="tasks" name="tasks" type="text" ng-model="Tasks" ng-required="true"/>
+</div>
+<div class="form_item_block">
     <div class="checkbox_row">
         <label for="chbUseWrapper">Use wrapper:</label>
         <input id="chbUseWrapper" type="checkbox" ng-model="chbUseWrapper" ng-init="chbUseWrapper = UseWrapper" ng-change="UseWrapper = chbUseWrapper" ng-true-value="true" ng-false-value="false">
@@ -8,10 +12,6 @@
 <div class="form_item_block">
     <label for="gradleHome">Gradle home:</label>
     <input id="gradleHome" type="text" ng-model="GradleHome">
-</div>
-<div class="form_item_block">
-    <label for="tasks">Tasks:<span class="asterisk">*</span></label>
-    <input id="tasks" name="tasks" type="text" ng-model="Tasks" ng-required="true"/>
 </div>
 <div class="form_item_block">
     <label>Options:</label>
