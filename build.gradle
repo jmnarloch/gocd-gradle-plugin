@@ -16,7 +16,7 @@ apply plugin: 'pmd'
 
 sourceCompatibility = 1.6
 
-group = "com.github.jmnarloch"
+group = "io.jmnarloch"
 archivesBaseName="gocd-gradle-plugin"
 
 ext {
