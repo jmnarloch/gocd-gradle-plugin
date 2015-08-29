@@ -5,7 +5,7 @@
         <version>0.1.0</version>
         <target-go-version>14.4.0</target-go-version>
         <description>
-            Task plugin that supports configuration and execution of Gradle builds in Go
+            Go Task plugin for Gradle builds
         </description>
         <vendor>
             <name>Jakub Narloch</name>

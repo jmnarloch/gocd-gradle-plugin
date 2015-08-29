@@ -1,12 +1,13 @@
 <div class="form_item_block">
     <div class="checkbox_row">
-        <label for="useWrapper">Use wrapper:</label>
-        <input id="useWrapper" type="checkbox" ng-model="UseWrapper" ng-true-value="true" ng-false-value="false">
+        <label for="chbUseWrapper">Use wrapper:</label>
+        <input id="chbUseWrapper" type="checkbox" ng-model="chbUseWrapper" ng-init="chbUseWrapper = UseWrapper" ng-change="UseWrapper = chbUseWrapper" ng-true-value="true" ng-false-value="false">
+        <input id="useWrapper" type="hidden" ng-model="UseWrapper" value="{{UseWrapper}}">
     </div>
 </div>
 <div class="form_item_block">
     <label for="gradleHome">Gradle home:</label>
-    <input id="gradleHome" type="text" ng-model="GradleHome" ng-disabled="UseWrapper">
+    <input id="gradleHome" type="text" ng-model="GradleHome" ng-disabled="UseWrapper == true">
 </div>
 <div class="form_item_block">
     <label for="tasks">Tasks:<span class="asterisk">*</span></label>
@@ -15,19 +16,23 @@
 <div class="form_item_block">
     <label>Options:</label>
     <div class="checkbox_row">
-        <label for="deamon">Use deamon:</label>
-        <input id="deamon" type="checkbox" ng-model="Deamon" ng-true-value="true" ng-false-value="false">
+        <label for="chkDeamon">Use deamon:</label>
+        <input id="chkDeamon" type="checkbox" ng-model="chkDeamon" ng-init="chkDeamon = Deamon" ng-change="Deamon = chkDeamon" ng-true-value="true" ng-false-value="false">
+        <input id="deamon" type="hidden" ng-model="Deamon" value="{{Deamon}}">
     </div>
     <div class="checkbox_row">
-        <label for="offline">Offline:</label>
-        <input id="offline" type="checkbox" ng-model="Offline" ng-true-value="true" ng-false-value="false">
+        <label for="chkOffline">Offline:</label>
+        <input id="chkOffline" type="checkbox" ng-model="chkOffline" ng-init="chkOffline = Offline" ng-change="Offline = chkOffline" ng-true-value="true" ng-false-value="false">
+        <input id="offline" type="hidden" ng-model="Offline" value="{{Offline}}">
     </div>
     <div class="checkbox_row">
-        <label for="debug">Log in debug mode:</label>
-        <input id="debug" type="checkbox" ng-model="Debug" ng-true-value="true" ng-false-value="false">
+        <label for="chkDebug">Log in debug mode:</label>
+        <input id="chkDebug" type="checkbox" ng-model="chkDebug" ng-init="chkDebug = Debug" ng-change="Debug = chkDebug" ng-true-value="true" ng-false-value="false">
+        <input id="debug" type="hidden" ng-model="Debug" value="{{Debug}}">
     </div>
 </div>
 <div class="form_item_block">
     <label for="additionalOptions">Additional options:</label>
-    <input id="additionalOptions" name="profiles" type="text" ng-model="AdditionalOptions">
+    <textarea id="additionalOptions" name="additionalOptions" type="text" ng-model="AdditionalOptions"></textarea>
+    <div class="inline_instruction">Enter each option on a new line</div>
 </div>
