@@ -1,6 +1,6 @@
 language: java
 jdk:
-- oraclejdk6
+- oraclejdk7
 install:
 - ./gradlew assemble -PossrhUsername="${ossrhUsername}" -PossrhPassword="${ossrhPassword}"
 script:
