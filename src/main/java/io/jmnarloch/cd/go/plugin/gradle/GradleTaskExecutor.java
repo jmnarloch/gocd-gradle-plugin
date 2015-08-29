@@ -102,7 +102,7 @@ public class GradleTaskExecutor implements TaskExecutor {
                 .withEnvironment(env)
                 .useWrapper(GradleTaskOptions.USE_WRAPPER_KEY)
                 .withGradleHome(GradleTaskOptions.GRADLE_HOME_KEY)
-                .withTaks(GradleTaskOptions.TASKS_KEY)
+                .withTasks(GradleTaskOptions.TASKS_KEY)
                 .withOption(GradleTaskOptions.DEBUG_KEY, "--debug")
                 .withOption(GradleTaskOptions.OFFLINE_KEY, "--offline")
                 .withOption(GradleTaskOptions.DAEMON_KEY, "--daemon")

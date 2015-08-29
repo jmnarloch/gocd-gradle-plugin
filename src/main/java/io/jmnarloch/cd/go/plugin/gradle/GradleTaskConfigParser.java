@@ -52,7 +52,7 @@ class GradleTaskConfigParser {
         return this;
     }
 
-    GradleTaskConfigParser withTaks(String propertyKey) {
+    GradleTaskConfigParser withTasks(String propertyKey) {
         final String tasks = taskConfig.getValue(propertyKey);
         if (!StringUtils.isBlank(tasks)) {
             this.tasks.addAll(Arrays.asList(tasks.split("\\s+")));
@@ -70,7 +70,7 @@ class GradleTaskConfigParser {
     GradleTaskConfigParser withAdditionalOptions(String propertyKey) {
         final String additional = taskConfig.getValue(propertyKey);
         if (!StringUtils.isBlank(additional)) {
-            options.addAll(Arrays.asList(additional.split("\\s+")));
+            options.addAll(Arrays.asList(additional.split("\\r?\\n")));
         }
         return this;
     }

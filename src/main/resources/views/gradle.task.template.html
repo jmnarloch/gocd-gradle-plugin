@@ -7,7 +7,7 @@
 </div>
 <div class="form_item_block">
     <label for="gradleHome">Gradle home:</label>
-    <input id="gradleHome" type="text" ng-model="GradleHome" ng-disabled="UseWrapper == true">
+    <input id="gradleHome" type="text" ng-model="GradleHome">
 </div>
 <div class="form_item_block">
     <label for="tasks">Tasks:<span class="asterisk">*</span></label>
@@ -33,6 +33,6 @@
 </div>
 <div class="form_item_block">
     <label for="additionalOptions">Additional options:</label>
-    <textarea id="additionalOptions" name="additionalOptions" type="text" ng-model="AdditionalOptions"></textarea>
+    <textarea id="additionalOptions" name="additionalOptions" type="text" ng-model="AdditionalOptions" rows="5"></textarea>
     <div class="inline_instruction">Enter each option on a new line</div>
 </div>
