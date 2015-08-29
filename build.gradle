@@ -63,6 +63,10 @@ dependencies {
 
 sourceSets.main.compileClasspath += [configurations.provided]
 
+javadoc {
+    classpath += [configurations.provided]
+}
+
 findbugs {
     ignoreFailures = true
 }
