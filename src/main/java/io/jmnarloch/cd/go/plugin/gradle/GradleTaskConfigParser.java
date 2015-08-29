@@ -70,7 +70,7 @@ class GradleTaskConfigParser {
     GradleTaskConfigParser withAdditionalOptions(String propertyKey) {
         final String additional = taskConfig.getValue(propertyKey);
         if (!StringUtils.isBlank(additional)) {
-            options.addAll(Arrays.asList(additional.split("\\r?\\n")));
+            options.addAll(Arrays.asList(additional.split("\\s+")));
         }
         return this;
     }
