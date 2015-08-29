@@ -21,6 +21,7 @@ Add Gradle tasks to your build stage.
 ### Tasks
 
 The lists of Gradle tasks to execute. (required)
+
 Example: clean build
 
 ### Use wrapper
@@ -30,6 +31,7 @@ Whether to run the wrapper script instead of gradle command
 ### Gradle home
 
 The Gradle installation directory, needed only if wrapper isn't used and gradle is not on path.
+
 You may also specify GRADLE_HOME environment variable either for the specific build or entire Go Environment.
 
 ### Use deamon
@@ -47,6 +49,7 @@ Enables debug logging level.
 ### Additional options
 
 Any additional options to pass to Gradle
+
 Example: --parallel
 
 ## License
