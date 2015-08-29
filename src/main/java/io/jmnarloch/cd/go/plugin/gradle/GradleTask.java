@@ -43,6 +43,7 @@ public class GradleTask implements Task {
         taskConfig.addProperty(GradleTaskOptions.DAEMON_KEY);
         taskConfig.addProperty(GradleTaskOptions.DEBUG_KEY);
         taskConfig.addProperty(GradleTaskOptions.OFFLINE_KEY);
+        taskConfig.addProperty(GradleTaskOptions.ADDITIONAL_OPTIONS_KEY);
         return taskConfig;
     }
 

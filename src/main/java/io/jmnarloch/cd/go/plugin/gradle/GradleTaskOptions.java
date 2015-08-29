@@ -26,7 +26,7 @@ public interface GradleTaskOptions {
 
     String TASKS_KEY = "Tasks";
 
-    String DAEMON_KEY = "Demon";
+    String DAEMON_KEY = "Deamon";
 
     String OFFLINE_KEY = "Offline";
 
