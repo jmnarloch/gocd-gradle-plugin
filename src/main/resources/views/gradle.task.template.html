@@ -1,0 +1,33 @@
+<div class="form_item_block">
+    <div class="checkbox_row">
+        <label for="useWrapper">Use wrapper:</label>
+        <input id="useWrapper" type="checkbox" ng-model="UseWrapper" ng-true-value="true" ng-false-value="false">
+    </div>
+</div>
+<div class="form_item_block">
+    <label for="gradleHome">Gradle home:</label>
+    <input id="gradleHome" type="text" ng-model="GradleHome" ng-disabled="UseWrapper">
+</div>
+<div class="form_item_block">
+    <label for="tasks">Tasks:<span class="asterisk">*</span></label>
+    <input id="tasks" name="tasks" type="text" ng-model="Tasks" ng-required="true"/>
+</div>
+<div class="form_item_block">
+    <label>Options:</label>
+    <div class="checkbox_row">
+        <label for="deamon">Use deamon:</label>
+        <input id="deamon" type="checkbox" ng-model="Deamon" ng-true-value="true" ng-false-value="false">
+    </div>
+    <div class="checkbox_row">
+        <label for="offline">Offline:</label>
+        <input id="offline" type="checkbox" ng-model="Offline" ng-true-value="true" ng-false-value="false">
+    </div>
+    <div class="checkbox_row">
+        <label for="debug">Log in debug mode:</label>
+        <input id="debug" type="checkbox" ng-model="Debug" ng-true-value="true" ng-false-value="false">
+    </div>
+</div>
+<div class="form_item_block">
+    <label for="additionalOptions">Additional options:</label>
+    <input id="additionalOptions" name="profiles" type="text" ng-model="AdditionalOptions">
+</div>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<go-plugin id="gradle.task.plugin" version="1">
+    <about>
+        <name>Gradle Task Plugin</name>
+        <version>0.1.0</version>
+        <target-go-version>14.4.0</target-go-version>
+        <description>
+            Task plugin that supports configuration and execution of Gradle builds in Go
+        </description>
+        <vendor>
+            <name>Jakub Narloch</name>
+            <url>https://github.com/jmnarloch/gocd-gradle-plugin</url>
+        </vendor>
+    </about>
+</go-plugin>

@@ -1,0 +1,11 @@
+ext {
+
+    libraries = [
+            goPluginApi  : 'cd.go.plugin:go-plugin-api:14.4.0',
+            commonsIO    : 'commons-io:commons-io:2.4',
+            commonsLang  : 'org.apache.commons:commons-lang3:3.4',
+
+            junit        : 'junit:junit:4.12',
+            mockito      : 'org.mockito:mockito-all:1.10.19'
+    ]
+}
