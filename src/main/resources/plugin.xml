@@ -2,7 +2,7 @@
 <go-plugin id="gradle.task.plugin" version="1">
     <about>
         <name>Gradle Task Plugin</name>
-        <version>0.1.0</version>
+        <version>1.0.0</version>
         <target-go-version>14.4.0</target-go-version>
         <description>
             Go Task plugin for Gradle builds

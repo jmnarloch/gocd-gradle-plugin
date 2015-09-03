@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.jmnarloch.cd.go.plugin.gradle;
+package io.jmnarloch.cd.go.plugin.gradle.task;
 
 import com.thoughtworks.go.plugin.api.logging.Logger;
 import com.thoughtworks.go.plugin.api.response.execution.ExecutionResult;
@@ -21,6 +21,7 @@ import com.thoughtworks.go.plugin.api.task.Console;
 import com.thoughtworks.go.plugin.api.task.TaskConfig;
 import com.thoughtworks.go.plugin.api.task.TaskExecutionContext;
 import com.thoughtworks.go.plugin.api.task.TaskExecutor;
+import io.jmnarloch.cd.go.plugin.gradle.api.GradleTaskOptions;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
 import java.io.File;

@@ -13,23 +13,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.jmnarloch.cd.go.plugin.gradle;
+package io.jmnarloch.cd.go.plugin.gradle.task;
 
+import com.thoughtworks.go.plugin.api.GoApplicationAccessor;
+import com.thoughtworks.go.plugin.api.GoPlugin;
+import com.thoughtworks.go.plugin.api.GoPluginIdentifier;
 import com.thoughtworks.go.plugin.api.annotation.Extension;
+import com.thoughtworks.go.plugin.api.exceptions.UnhandledRequestTypeException;
 import com.thoughtworks.go.plugin.api.logging.Logger;
+import com.thoughtworks.go.plugin.api.request.GoPluginApiRequest;
+import com.thoughtworks.go.plugin.api.response.GoPluginApiResponse;
 import com.thoughtworks.go.plugin.api.response.validation.ValidationError;
 import com.thoughtworks.go.plugin.api.response.validation.ValidationResult;
-import com.thoughtworks.go.plugin.api.task.Task;
 import com.thoughtworks.go.plugin.api.task.TaskConfig;
 import com.thoughtworks.go.plugin.api.task.TaskExecutor;
 import com.thoughtworks.go.plugin.api.task.TaskView;
+import io.jmnarloch.cd.go.plugin.gradle.api.GradleTaskOptions;
 import org.apache.commons.lang3.StringUtils;
+
+import java.util.Arrays;
 
 /**
  * @author Jakub Narloch
  */
 @Extension
-public class GradleTask implements Task {
+public class GradleTask implements GoPlugin {
 
     private static final Logger logger = Logger.getLoggerFor(GradleTask.class);
 
@@ -64,5 +72,23 @@ public class GradleTask implements Task {
             validationResult.addError(new ValidationError("You need to specify Gradle tasks"));
         }
         return validationResult;
+    }
+
+    @Override
+    public void initializeGoApplicationAccessor(GoApplicationAccessor goApplicationAccessor) {
+        // empty method
+    }
+
+    @Override
+    public GoPluginApiResponse handle(GoPluginApiRequest requestMessage) throws UnhandledRequestTypeException {
+
+
+
+        return null;
+    }
+
+    @Override
+    public GoPluginIdentifier pluginIdentifier() {
+        return new GoPluginIdentifier("Gradle Task Plugin", Arrays.asList("1.0.0"));
     }
 }

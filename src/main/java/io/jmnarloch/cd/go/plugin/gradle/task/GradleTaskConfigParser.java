@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.jmnarloch.cd.go.plugin.gradle;
+package io.jmnarloch.cd.go.plugin.gradle.task;
 
 import com.thoughtworks.go.plugin.api.task.TaskConfig;
 import org.apache.commons.lang3.StringUtils;
