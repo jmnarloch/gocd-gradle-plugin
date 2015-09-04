@@ -20,6 +20,7 @@ import com.thoughtworks.go.plugin.api.response.DefaultGoPluginApiResponse;
 import com.thoughtworks.go.plugin.api.response.GoPluginApiResponse;
 import io.jmnarloch.cd.go.plugin.gradle.api.ApiCommand;
 import io.jmnarloch.cd.go.plugin.gradle.api.TaskValidator;
+import io.jmnarloch.cd.go.plugin.gradle.api.ValidationErrors;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -40,12 +41,12 @@ public class ValidateCommand extends BaseCommand implements ApiCommand {
     @Override
     public GoPluginApiResponse execute(GoPluginApiRequest request) {
 
-        final Map<String, String> errors = taskValidator.validate(parseRequest(request));
+        final ValidationErrors errors = taskValidator.validate(parseRequest(request));
 
         int responseCode = DefaultGoPluginApiResponse.SUCCESS_RESPONSE_CODE;
         final Map<String, Object> response = new HashMap<>();
 
-        if(!errors.isEmpty()) {
+        if(errors.hasErrors()) {
             responseCode = DefaultGoPluginApiResponse.VALIDATION_FAILED;
             response.put("errors", errors);
         }

@@ -39,13 +39,13 @@ public class TaskCommand extends BaseCommand implements ApiCommand {
     @Override
     public GoPluginApiResponse execute(GoPluginApiRequest request) {
 
-        final Map req = parseRequest(request);
+        final Map<String, Object> req = parseRequest(request);
         final ExecutionContext ctx = new ExecutionContext((Map) req.get("context"));
         final ExecutionConfiguration cfg = new ExecutionConfiguration((Map) req.get("config"));
 
         try {
             final ExecutionResult result = taskExecutor.execute(ctx, cfg, JobConsoleLogger.getConsoleLogger());
-            // TODO refactor this
+
             final Map<String, Object> response = toMap(result);
             return createResponse(result.isSuccess() ? DefaultGoPluginApiResponse.SUCCESS_RESPONSE_CODE
                     : DefaultGoPluginApiResponse.INTERNAL_ERROR, response);

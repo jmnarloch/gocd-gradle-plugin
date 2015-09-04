@@ -15,12 +15,25 @@
  */
 package io.jmnarloch.cd.go.plugin.gradle.api;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
  *
  */
-public interface TaskValidator {
+public final class ValidationErrors {
 
-    ValidationErrors validate(Map<String, Object> properties);
+    private final Map<String, String> errors = new HashMap<String, String>();
+
+    public void addError(String key, String message) {
+        errors.put(key, message);
+    }
+
+    public boolean hasErrors() {
+        return errors.isEmpty();
+    }
+
+    public Map<String, String> getErrors() {
+        return errors;
+    }
 }
