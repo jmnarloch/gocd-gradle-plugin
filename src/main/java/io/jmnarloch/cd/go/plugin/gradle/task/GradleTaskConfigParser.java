@@ -85,17 +85,17 @@ class GradleTaskConfigParser {
 
         if (useWrapper) {
             if (isWindows()) {
-                command.add(GRADLEW_WINDOWS);
+                command.add(gradlew().windows());
             } else {
-                command.add(GRADLEW_UNIX);
+                command.add(gradlew().unix());
             }
         } else {
             final String gradleHome = getGradleHome();
 
             if (!StringUtils.isBlank(gradleHome)) {
-                command.add(new File(new File(gradleHome, GRADLE_BIN), GRADLE).getAbsolutePath());
+                command.add(new File(new File(gradleHome, GRADLE_BIN), gradle()).getAbsolutePath());
             } else {
-                command.add(GRADLE);
+                command.add(gradle());
             }
         }
         command.addAll(options);
@@ -127,5 +127,26 @@ class GradleTaskConfigParser {
 
     private static boolean isSet(String value) {
         return !StringUtils.isBlank(value) && Boolean.valueOf(value);
+    }
+
+    private String gradle() {
+        return GRADLE;
+    }
+
+    private GradlewCommand gradlew() {
+        return GradlewCommand.INSTANCE;
+    }
+
+    private static class GradlewCommand {
+
+        public static final GradlewCommand INSTANCE = new GradlewCommand();
+
+        String windows() {
+            return GRADLEW_WINDOWS;
+        }
+
+        String unix() {
+            return GRADLEW_UNIX;
+        }
     }
 }
