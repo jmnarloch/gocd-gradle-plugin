@@ -15,7 +15,8 @@
  */
 package io.jmnarloch.cd.go.plugin.gradle.task;
 
-import com.thoughtworks.go.plugin.api.task.TaskView;
+import io.jmnarloch.cd.go.plugin.gradle.api.PluginException;
+import io.jmnarloch.cd.go.plugin.gradle.api.TaskView;
 import org.apache.commons.io.IOUtils;
 
 import java.io.IOException;
@@ -25,8 +26,7 @@ import java.io.IOException;
  */
 public class GradleTaskView implements TaskView {
 
-    public static final String NAME = "Gradle";
-
+    private static final String NAME = "Gradle";
     private static final String TEMPLATE_PATH = "/views/gradle.task.template.html";
     private static final String UTF_CHARSET = "UTF-8";
 
@@ -41,7 +41,7 @@ public class GradleTaskView implements TaskView {
         try {
             return IOUtils.toString(getClass().getResourceAsStream(TEMPLATE_PATH), UTF_CHARSET);
         } catch (IOException e) {
-            return "Could not load view template " + e.getMessage();
+            throw new PluginException("The view template could not be loaded.", e);
         }
     }
 }

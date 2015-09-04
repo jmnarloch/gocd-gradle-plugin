@@ -26,6 +26,12 @@ import java.util.*;
  */
 class GradleTaskConfigParser {
 
+    private static final String GRADLE_HOME = "GRADLE_HOME";
+    private static final String GRADLEW_WINDOWS = "./gradlew.bat";
+    private static final String GRADLEW_UNIX = "./gradlew";
+    private static final String GRADLE = "gradle";
+    private static final String GRADLE_BIN = "bin";
+    
     private final TaskConfig taskConfig;
     private final List<String> tasks = new ArrayList<String>();
     private final List<String> options = new ArrayList<String>();
@@ -80,17 +86,17 @@ class GradleTaskConfigParser {
 
         if (useWrapper) {
             if (isWindows()) {
-                command.add("./gradlew.bat");
+                command.add(GRADLEW_WINDOWS);
             } else {
-                command.add("./gradlew");
+                command.add(GRADLEW_UNIX);
             }
         } else {
             final String gradleHome = getGradleHome();
 
             if (!StringUtils.isBlank(gradleHome)) {
-                command.add(new File(new File(gradleHome, "bin"), "gradle").getAbsolutePath());
+                command.add(new File(new File(gradleHome, GRADLE_BIN), GRADLE).getAbsolutePath());
             } else {
-                command.add("gradle");
+                command.add(GRADLE);
             }
         }
         command.addAll(options);
@@ -103,13 +109,11 @@ class GradleTaskConfigParser {
     }
 
     private String getGradleHome() {
-
         if(!StringUtils.isBlank(gradleHome)) {
             return gradleHome;
-        } else if(!StringUtils.isBlank(environment.get("GRADLE_HOME"))) {
-            return environment.get("GRADLE_HOME");
+        } else if(!StringUtils.isBlank(environment.get(GRADLE_HOME))) {
+            return environment.get(GRADLE_HOME);
         }
-
         return null;
     }
 

@@ -18,10 +18,12 @@ package io.jmnarloch.cd.go.plugin.gradle.task;
 import com.thoughtworks.go.plugin.api.logging.Logger;
 import com.thoughtworks.go.plugin.api.response.execution.ExecutionResult;
 import com.thoughtworks.go.plugin.api.task.Console;
+import com.thoughtworks.go.plugin.api.task.JobConsoleLogger;
 import com.thoughtworks.go.plugin.api.task.TaskConfig;
 import com.thoughtworks.go.plugin.api.task.TaskExecutionContext;
-import com.thoughtworks.go.plugin.api.task.TaskExecutor;
-import io.jmnarloch.cd.go.plugin.gradle.api.GradleTaskOptions;
+import io.jmnarloch.cd.go.plugin.gradle.api.ExecutionConfiguration;
+import io.jmnarloch.cd.go.plugin.gradle.api.ExecutionContext;
+import io.jmnarloch.cd.go.plugin.gradle.api.TaskExecutor;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
 import java.io.File;
@@ -41,6 +43,11 @@ public class GradleTaskExecutor implements TaskExecutor {
     private static final String FAILURE = "Build failure";
 
     @Override
+    public void execute(ExecutionContext context, ExecutionConfiguration configuration, JobConsoleLogger console) {
+
+        // TODO implement
+    }
+
     public ExecutionResult execute(TaskConfig config, TaskExecutionContext taskExecutionContext) {
 
         final Console console = taskExecutionContext.console();
