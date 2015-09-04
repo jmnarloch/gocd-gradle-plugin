@@ -41,7 +41,7 @@ public class ViewCommand extends BaseCommand implements ApiCommand {
     public GoPluginApiResponse execute(GoPluginApiRequest request) {
 
         int responseCode = DefaultGoApiResponse.SUCCESS_RESPONSE_CODE;
-        final Map response = new HashMap();
+        final Map<String, Object> response = new HashMap<>();
         try {
             response.put("displayValue", taskView.displayValue());
             response.put("template", taskView.template());

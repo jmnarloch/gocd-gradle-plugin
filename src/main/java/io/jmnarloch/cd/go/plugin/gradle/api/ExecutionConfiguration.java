@@ -22,7 +22,15 @@ import java.util.Map;
  */
 public class ExecutionConfiguration {
 
-    public ExecutionConfiguration(Map prop) {
+    private final Map<String, String> configuration;
 
+    public ExecutionConfiguration(Map configuration) {
+
+        // TODO either cast this or copy with key/value string conversion
+        this.configuration = configuration;
+    }
+
+    public Map<String, String> getConfiguration() {
+        return configuration;
     }
 }

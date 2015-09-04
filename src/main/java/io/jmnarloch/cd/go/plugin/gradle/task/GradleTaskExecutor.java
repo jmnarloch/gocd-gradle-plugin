@@ -16,13 +16,10 @@
 package io.jmnarloch.cd.go.plugin.gradle.task;
 
 import com.thoughtworks.go.plugin.api.logging.Logger;
-import com.thoughtworks.go.plugin.api.response.execution.ExecutionResult;
-import com.thoughtworks.go.plugin.api.task.Console;
 import com.thoughtworks.go.plugin.api.task.JobConsoleLogger;
-import com.thoughtworks.go.plugin.api.task.TaskConfig;
-import com.thoughtworks.go.plugin.api.task.TaskExecutionContext;
 import io.jmnarloch.cd.go.plugin.gradle.api.ExecutionConfiguration;
 import io.jmnarloch.cd.go.plugin.gradle.api.ExecutionContext;
+import io.jmnarloch.cd.go.plugin.gradle.api.ExecutionResult;
 import io.jmnarloch.cd.go.plugin.gradle.api.TaskExecutor;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
@@ -43,16 +40,10 @@ public class GradleTaskExecutor implements TaskExecutor {
     private static final String FAILURE = "Build failure";
 
     @Override
-    public void execute(ExecutionContext context, ExecutionConfiguration configuration, JobConsoleLogger console) {
+    public ExecutionResult execute(ExecutionContext context, ExecutionConfiguration configuration, JobConsoleLogger console) {
 
-        // TODO implement
-    }
-
-    public ExecutionResult execute(TaskConfig config, TaskExecutionContext taskExecutionContext) {
-
-        final Console console = taskExecutionContext.console();
         try {
-            final ProcessBuilder gradle = buildGradleProcess(config, taskExecutionContext);
+            final ProcessBuilder gradle = buildGradleProcess(configuration, context);
 
             int result = execute(gradle, console);
 
@@ -71,8 +62,8 @@ public class GradleTaskExecutor implements TaskExecutor {
         }
     }
 
-    private static ProcessBuilder buildGradleProcess(TaskConfig config, TaskExecutionContext environment) {
-        final Map<String, String> env = environment.environment().asMap();
+    private static ProcessBuilder buildGradleProcess(ExecutionConfiguration config, ExecutionContext environment) {
+        final Map<String, String> env = environment.getEnvironmentVariables();
 
         final List<String> command = parse(config, env);
 
@@ -80,11 +71,11 @@ public class GradleTaskExecutor implements TaskExecutor {
 
         final ProcessBuilder builder = new ProcessBuilder(command);
         builder.environment().putAll(env);
-        builder.directory(new File(environment.workingDir()));
+        builder.directory(new File(environment.getWorkingDirectory()));
         return builder;
     }
 
-    private static int execute(ProcessBuilder builder, Console console) throws IOException, InterruptedException {
+    private static int execute(ProcessBuilder builder, JobConsoleLogger console) throws IOException, InterruptedException {
 
         Process process = null;
         try {
@@ -104,9 +95,9 @@ public class GradleTaskExecutor implements TaskExecutor {
         return result == 0;
     }
 
-    private static List<String> parse(TaskConfig config, Map<String, String> env) {
+    private static List<String> parse(ExecutionConfiguration config, Map<String, String> env) {
 
-        return GradleTaskConfigParser.fromConfig(config)
+        return GradleTaskConfigParser.fromConfig(config.getConfiguration())
                 .withEnvironment(env)
                 .useWrapper(GradleTaskOptions.USE_WRAPPER_KEY)
                 .withGradleHome(GradleTaskOptions.GRADLE_HOME_KEY)

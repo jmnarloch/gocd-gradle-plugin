@@ -24,9 +24,28 @@ public class ExecutionResult {
 
     private final String message;
 
-    public ExecutionResult(boolean success, String message) {
+    private final Exception exception;
+
+    private ExecutionResult(boolean success, String message) {
+        this(success, message, null);
+    }
+
+    private ExecutionResult(boolean success, String message, Exception exc) {
         this.success = success;
         this.message = message;
+        this.exception = exc;
+    }
+
+    public static ExecutionResult success(String message) {
+        return new ExecutionResult(true, message);
+    }
+
+    public static ExecutionResult failure(String message) {
+        return failure(message, null);
+    }
+
+    public static ExecutionResult failure(String message, Exception exc) {
+        return new ExecutionResult(false, message, exc);
     }
 
     public boolean isSuccess() {
@@ -35,5 +54,9 @@ public class ExecutionResult {
 
     public String getMessage() {
         return message;
+    }
+
+    public Exception getException() {
+        return exception;
     }
 }

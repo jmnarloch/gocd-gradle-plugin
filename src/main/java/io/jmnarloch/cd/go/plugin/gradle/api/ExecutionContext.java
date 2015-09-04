@@ -22,7 +22,22 @@ import java.util.Map;
  */
 public class ExecutionContext {
 
+    private final Map<String, String> environmentVariables;
+
+    private final String workingDirectory;
+
     public ExecutionContext(Map props) {
 
+        // TODO either cast this or copy the map with casting to string
+        environmentVariables = (Map<String, String>) props.get("environmentVariables");
+        workingDirectory = (String) props.get("workingDirectory");
+    }
+
+    public Map<String, String> getEnvironmentVariables() {
+        return environmentVariables;
+    }
+
+    public String getWorkingDirectory() {
+        return workingDirectory;
     }
 }

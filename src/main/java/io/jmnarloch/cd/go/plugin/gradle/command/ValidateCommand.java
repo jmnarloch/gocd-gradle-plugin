@@ -43,7 +43,7 @@ public class ValidateCommand extends BaseCommand implements ApiCommand {
         final Map<String, String> errors = taskValidator.validate(parseRequest(request));
 
         int responseCode = DefaultGoPluginApiResponse.SUCCESS_RESPONSE_CODE;
-        final Map response = new HashMap();
+        final Map<String, Object> response = new HashMap<>();
 
         if(!errors.isEmpty()) {
             responseCode = DefaultGoPluginApiResponse.VALIDATION_FAILED;

@@ -15,7 +15,6 @@
  */
 package io.jmnarloch.cd.go.plugin.gradle.task;
 
-import com.thoughtworks.go.plugin.api.task.TaskConfig;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.File;
@@ -32,14 +31,14 @@ class GradleTaskConfigParser {
     private static final String GRADLE = "gradle";
     private static final String GRADLE_BIN = "bin";
     
-    private final TaskConfig taskConfig;
+    private final Map<String, String> taskConfig;
     private final List<String> tasks = new ArrayList<String>();
     private final List<String> options = new ArrayList<String>();
     private Map<String, String> environment = new HashMap<String, String>();
     private boolean useWrapper = false;
     private String gradleHome;
 
-    private GradleTaskConfigParser(TaskConfig taskConfig) {
+    private GradleTaskConfigParser(Map<String, String> taskConfig) {
         this.taskConfig = taskConfig;
     }
 
@@ -54,12 +53,12 @@ class GradleTaskConfigParser {
     }
 
     GradleTaskConfigParser withGradleHome(String propertyKey) {
-        gradleHome = taskConfig.getValue(propertyKey);
+        gradleHome = taskConfig.get(propertyKey);
         return this;
     }
 
     GradleTaskConfigParser withTasks(String propertyKey) {
-        final String tasks = taskConfig.getValue(propertyKey);
+        final String tasks = taskConfig.get(propertyKey);
         if (!StringUtils.isBlank(tasks)) {
             this.tasks.addAll(Arrays.asList(tasks.split("\\s+")));
         }
@@ -74,7 +73,7 @@ class GradleTaskConfigParser {
     }
 
     GradleTaskConfigParser withAdditionalOptions(String propertyKey) {
-        final String additional = taskConfig.getValue(propertyKey);
+        final String additional = taskConfig.get(propertyKey);
         if (!StringUtils.isBlank(additional)) {
             options.addAll(Arrays.asList(additional.split("\\s+")));
         }
@@ -104,7 +103,7 @@ class GradleTaskConfigParser {
         return command;
     }
 
-    public static GradleTaskConfigParser fromConfig(TaskConfig taskConfig) {
+    public static GradleTaskConfigParser fromConfig(Map<String, String> taskConfig) {
         return new GradleTaskConfigParser(taskConfig);
     }
 
@@ -118,7 +117,7 @@ class GradleTaskConfigParser {
     }
 
     private boolean isPropertySet(String propertyKey) {
-        return isSet(taskConfig.getValue(propertyKey));
+        return isSet(taskConfig.get(propertyKey));
     }
 
     private boolean isWindows() {
