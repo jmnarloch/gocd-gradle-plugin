@@ -15,8 +15,63 @@
  */
 package io.jmnarloch.cd.go.plugin.gradle.task;
 
+import io.jmnarloch.cd.go.plugin.gradle.api.PluginException;
+
+import javax.xml.stream.XMLInputFactory;
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamReader;
+import javax.xml.stream.events.XMLEvent;
+import java.io.IOException;
+import java.io.InputStream;
+
 /**
  *
  */
 public class PluginMetadata {
+
+    private static PluginMetadata pluginMetadata;
+
+    private final String id;
+    private final String version;
+
+    public PluginMetadata(String id, String version) {
+        this.id = id;
+        this.version = version;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getVersion() {
+        return version;
+    }
+
+    public synchronized static PluginMetadata getMetadata() {
+
+        if(pluginMetadata == null) {
+            String id = "Gradle Task Plugin";
+            String version = "1.0.0";
+
+            try(final InputStream inputStream = PluginMetadata.class.getResourceAsStream("/plugin.xml")) {
+
+                final XMLInputFactory f = XMLInputFactory.newInstance();
+                final XMLStreamReader r = f.createXMLStreamReader(inputStream);
+                while (r.hasNext()) {
+                    final int eventType = r.next();
+                    if(eventType == XMLEvent.START_ELEMENT) {
+                        if ("name".equals(r.getLocalName())) {
+                            id = r.getText();
+                        } else if ("version".equals(r.getLocalName())) {
+                            version = r.getText();
+                        }
+                    }
+                }
+                pluginMetadata = new PluginMetadata(id, version);
+            } catch (XMLStreamException | IOException e) {
+                throw new PluginException("Could not load plugin manifest", e);
+            }
+        }
+        return pluginMetadata;
+    }
 }

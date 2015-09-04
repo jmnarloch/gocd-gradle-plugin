@@ -58,7 +58,7 @@ public class GradleTaskPlugin implements GoPlugin {
 
     @Override
     public GoPluginIdentifier pluginIdentifier() {
-        // TODO move to settings
-        return new GoPluginIdentifier("Gradle Task Plugin", Collections.singletonList("1.0.0"));
+        final PluginMetadata pluginMetadata = PluginMetadata.getMetadata();
+        return new GoPluginIdentifier(pluginMetadata.getId(), Collections.singletonList(pluginMetadata.getVersion()));
     }
 }

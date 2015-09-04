@@ -20,6 +20,7 @@ import io.jmnarloch.cd.go.plugin.gradle.api.TaskView;
 import org.apache.commons.io.IOUtils;
 
 import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * @author Jakub Narloch
@@ -38,8 +39,8 @@ public class GradleTaskView implements TaskView {
     @Override
     public String template() {
 
-        try {
-            return IOUtils.toString(getClass().getResourceAsStream(TEMPLATE_PATH), UTF_CHARSET);
+        try(InputStream inputStream = getClass().getResourceAsStream(TEMPLATE_PATH)) {
+            return IOUtils.toString(inputStream, UTF_CHARSET);
         } catch (IOException e) {
             throw new PluginException("The view template could not be loaded.", e);
         }
