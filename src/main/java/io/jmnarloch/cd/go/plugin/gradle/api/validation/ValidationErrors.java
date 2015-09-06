@@ -13,14 +13,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.jmnarloch.cd.go.plugin.gradle.api;
+package io.jmnarloch.cd.go.plugin.gradle.api.validation;
 
-import com.thoughtworks.go.plugin.api.task.JobConsoleLogger;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  *
  */
-public interface TaskExecutor {
+public final class ValidationErrors {
 
-    ExecutionResult execute(ExecutionContext context, ExecutionConfiguration configuration, JobConsoleLogger console);
+    private final Map<String, String> errors = new HashMap<String, String>();
+
+    public void addError(String key, String message) {
+        errors.put(key, message);
+    }
+
+    public boolean hasErrors() {
+        return errors.isEmpty();
+    }
+
+    public Map<String, String> getErrors() {
+        return errors;
+    }
 }

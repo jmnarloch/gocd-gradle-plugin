@@ -13,24 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.jmnarloch.cd.go.plugin.gradle.api;
+package io.jmnarloch.cd.go.plugin.gradle.api.configuration;
 
 import java.util.Map;
 
 /**
  *
  */
-public class ExecutionConfiguration {
+public interface TaskConfiguration {
 
-    private final Map<String, String> configuration;
-
-    public ExecutionConfiguration(Map configuration) {
-
-        // TODO either cast this or copy with key/value string conversion
-        this.configuration = configuration;
-    }
-
-    public Map<String, String> getConfiguration() {
-        return configuration;
-    }
+    Map getTaskConfiguration();
 }

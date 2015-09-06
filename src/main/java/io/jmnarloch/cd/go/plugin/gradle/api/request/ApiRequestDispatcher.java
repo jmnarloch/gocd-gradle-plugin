@@ -13,18 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.jmnarloch.cd.go.plugin.gradle.api;
+package io.jmnarloch.cd.go.plugin.gradle.api.request;
+
+import com.thoughtworks.go.plugin.api.exceptions.UnhandledRequestTypeException;
+import com.thoughtworks.go.plugin.api.request.GoPluginApiRequest;
+import com.thoughtworks.go.plugin.api.response.GoPluginApiResponse;
 
 /**
  *
  */
-public interface ApiRequests {
+public interface ApiRequestDispatcher {
 
-    String CONFIGURATION = "configuration";
-
-    String VALIDATE = "validate";
-
-    String VIEW = "view";
-
-    String EXECUTE = "execute";
+    GoPluginApiResponse dispatch(GoPluginApiRequest request) throws UnhandledRequestTypeException;
 }

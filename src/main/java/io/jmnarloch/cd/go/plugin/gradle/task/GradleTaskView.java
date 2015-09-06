@@ -15,8 +15,8 @@
  */
 package io.jmnarloch.cd.go.plugin.gradle.task;
 
-import io.jmnarloch.cd.go.plugin.gradle.api.PluginException;
-import io.jmnarloch.cd.go.plugin.gradle.api.TaskView;
+import io.jmnarloch.cd.go.plugin.gradle.api.exception.PluginException;
+import io.jmnarloch.cd.go.plugin.gradle.api.view.TaskView;
 import org.apache.commons.io.IOUtils;
 
 import java.io.IOException;

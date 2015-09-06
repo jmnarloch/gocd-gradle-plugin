@@ -13,15 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.jmnarloch.cd.go.plugin.gradle.api;
+package io.jmnarloch.cd.go.plugin.gradle.api.executor;
 
-import com.thoughtworks.go.plugin.api.request.GoPluginApiRequest;
-import com.thoughtworks.go.plugin.api.response.GoPluginApiResponse;
+import java.util.Map;
 
 /**
  *
  */
-public interface ApiCommand {
+public class ExecutionConfiguration {
 
-    GoPluginApiResponse execute(GoPluginApiRequest request);
+    private final Map<String, String> configuration;
+
+    public ExecutionConfiguration(Map configuration) {
+
+        // TODO either cast this or copy with key/value string conversion
+        this.configuration = configuration;
+    }
+
+    public Map<String, String> getConfiguration() {
+        return configuration;
+    }
 }

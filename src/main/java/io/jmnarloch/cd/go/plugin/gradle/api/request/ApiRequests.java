@@ -13,15 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.jmnarloch.cd.go.plugin.gradle.api;
-
-import java.lang.annotation.*;
+package io.jmnarloch.cd.go.plugin.gradle.api.request;
 
 /**
  *
  */
-@Documented
-@Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.FIELD)
-public @interface PropertyName {
+public interface ApiRequests {
+
+    String CONFIGURATION = "configuration";
+
+    String VALIDATE = "validate";
+
+    String VIEW = "view";
+
+    String EXECUTE = "execute";
 }

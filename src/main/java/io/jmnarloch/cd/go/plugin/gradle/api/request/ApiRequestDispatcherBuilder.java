@@ -13,12 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.jmnarloch.cd.go.plugin.gradle.task;
+package io.jmnarloch.cd.go.plugin.gradle.api.request;
 
 import com.thoughtworks.go.plugin.api.exceptions.UnhandledRequestTypeException;
 import com.thoughtworks.go.plugin.api.request.GoPluginApiRequest;
 import com.thoughtworks.go.plugin.api.response.GoPluginApiResponse;
-import io.jmnarloch.cd.go.plugin.gradle.api.*;
+import io.jmnarloch.cd.go.plugin.gradle.api.command.ApiCommand;
+import io.jmnarloch.cd.go.plugin.gradle.api.configuration.TaskConfiguration;
+import io.jmnarloch.cd.go.plugin.gradle.api.executor.TaskExecutor;
+import io.jmnarloch.cd.go.plugin.gradle.api.validation.TaskValidator;
+import io.jmnarloch.cd.go.plugin.gradle.api.view.TaskView;
 import io.jmnarloch.cd.go.plugin.gradle.command.ConfigurationCommand;
 import io.jmnarloch.cd.go.plugin.gradle.command.TaskCommand;
 import io.jmnarloch.cd.go.plugin.gradle.command.ValidateCommand;
@@ -30,7 +34,7 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  *
  */
-class ApiRequestDispatcherBuilder {
+public class ApiRequestDispatcherBuilder {
 
     private final Map<String, ApiCommand> commands = new ConcurrentHashMap<String, ApiCommand>();
 

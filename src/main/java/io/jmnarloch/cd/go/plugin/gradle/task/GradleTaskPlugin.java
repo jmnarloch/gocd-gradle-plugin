@@ -22,7 +22,10 @@ import com.thoughtworks.go.plugin.api.annotation.Extension;
 import com.thoughtworks.go.plugin.api.exceptions.UnhandledRequestTypeException;
 import com.thoughtworks.go.plugin.api.request.GoPluginApiRequest;
 import com.thoughtworks.go.plugin.api.response.GoPluginApiResponse;
-import io.jmnarloch.cd.go.plugin.gradle.api.ApiRequestDispatcher;
+import io.jmnarloch.cd.go.plugin.gradle.api.config.AnnotatedEnumConfigurationProvider;
+import io.jmnarloch.cd.go.plugin.gradle.api.metadata.PluginMetadata;
+import io.jmnarloch.cd.go.plugin.gradle.api.request.ApiRequestDispatcher;
+import io.jmnarloch.cd.go.plugin.gradle.api.request.ApiRequestDispatcherBuilder;
 
 import java.util.Collections;
 

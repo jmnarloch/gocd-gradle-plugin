@@ -17,10 +17,10 @@ package io.jmnarloch.cd.go.plugin.gradle.task;
 
 import com.thoughtworks.go.plugin.api.logging.Logger;
 import com.thoughtworks.go.plugin.api.task.JobConsoleLogger;
-import io.jmnarloch.cd.go.plugin.gradle.api.ExecutionConfiguration;
-import io.jmnarloch.cd.go.plugin.gradle.api.ExecutionContext;
-import io.jmnarloch.cd.go.plugin.gradle.api.ExecutionResult;
-import io.jmnarloch.cd.go.plugin.gradle.api.TaskExecutor;
+import io.jmnarloch.cd.go.plugin.gradle.api.executor.ExecutionConfiguration;
+import io.jmnarloch.cd.go.plugin.gradle.api.executor.ExecutionContext;
+import io.jmnarloch.cd.go.plugin.gradle.api.executor.ExecutionResult;
+import io.jmnarloch.cd.go.plugin.gradle.api.executor.TaskExecutor;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
 import java.io.File;

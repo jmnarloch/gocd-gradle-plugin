@@ -18,9 +18,9 @@ package io.jmnarloch.cd.go.plugin.gradle.command;
 import com.thoughtworks.go.plugin.api.request.GoPluginApiRequest;
 import com.thoughtworks.go.plugin.api.response.DefaultGoApiResponse;
 import com.thoughtworks.go.plugin.api.response.GoPluginApiResponse;
-import io.jmnarloch.cd.go.plugin.gradle.api.ApiCommand;
-import io.jmnarloch.cd.go.plugin.gradle.api.PluginException;
-import io.jmnarloch.cd.go.plugin.gradle.api.TaskView;
+import io.jmnarloch.cd.go.plugin.gradle.api.command.ApiCommand;
+import io.jmnarloch.cd.go.plugin.gradle.api.exception.PluginException;
+import io.jmnarloch.cd.go.plugin.gradle.api.view.TaskView;
 
 import java.util.HashMap;
 import java.util.Map;

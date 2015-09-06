@@ -19,7 +19,12 @@ import com.thoughtworks.go.plugin.api.request.GoPluginApiRequest;
 import com.thoughtworks.go.plugin.api.response.DefaultGoPluginApiResponse;
 import com.thoughtworks.go.plugin.api.response.GoPluginApiResponse;
 import com.thoughtworks.go.plugin.api.task.JobConsoleLogger;
-import io.jmnarloch.cd.go.plugin.gradle.api.*;
+import io.jmnarloch.cd.go.plugin.gradle.api.command.ApiCommand;
+import io.jmnarloch.cd.go.plugin.gradle.api.exception.PluginException;
+import io.jmnarloch.cd.go.plugin.gradle.api.executor.ExecutionConfiguration;
+import io.jmnarloch.cd.go.plugin.gradle.api.executor.ExecutionContext;
+import io.jmnarloch.cd.go.plugin.gradle.api.executor.ExecutionResult;
+import io.jmnarloch.cd.go.plugin.gradle.api.executor.TaskExecutor;
 
 import java.util.HashMap;
 import java.util.Map;

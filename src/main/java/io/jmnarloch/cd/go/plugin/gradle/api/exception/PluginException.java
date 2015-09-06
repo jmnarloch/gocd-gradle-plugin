@@ -13,14 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.jmnarloch.cd.go.plugin.gradle.api;
-
-import java.util.Map;
+package io.jmnarloch.cd.go.plugin.gradle.api.exception;
 
 /**
  *
  */
-public interface TaskConfiguration {
+public class PluginException extends RuntimeException {
 
-    Map getTaskConfiguration();
+    public PluginException(String message) {
+        super(message);
+    }
+
+    public PluginException(String message, Throwable cause) {
+        super(message, cause);
+    }
 }

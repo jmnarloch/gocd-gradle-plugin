@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.jmnarloch.cd.go.plugin.gradle.task;
+package io.jmnarloch.cd.go.plugin.gradle.api.metadata;
 
-import io.jmnarloch.cd.go.plugin.gradle.api.PluginException;
+import io.jmnarloch.cd.go.plugin.gradle.api.exception.PluginException;
 
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;
@@ -50,8 +50,8 @@ public class PluginMetadata {
     public synchronized static PluginMetadata getMetadata() {
 
         if(pluginMetadata == null) {
-            String id = "Gradle Task Plugin";
-            String version = "1.0.0";
+            String id = null;
+            String version = null;
 
             try(final InputStream inputStream = PluginMetadata.class.getResourceAsStream("/plugin.xml")) {
 

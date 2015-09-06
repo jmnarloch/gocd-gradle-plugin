@@ -15,7 +15,8 @@
  */
 package io.jmnarloch.cd.go.plugin.gradle.task;
 
-import io.jmnarloch.cd.go.plugin.gradle.api.ValidationErrors;
+import io.jmnarloch.cd.go.plugin.gradle.api.validation.AbstractTaskValidator;
+import io.jmnarloch.cd.go.plugin.gradle.api.validation.ValidationErrors;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.Map;

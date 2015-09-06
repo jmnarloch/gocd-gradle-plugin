@@ -13,11 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.jmnarloch.cd.go.plugin.gradle.task;
+package io.jmnarloch.cd.go.plugin.gradle.api.config;
 
-import io.jmnarloch.cd.go.plugin.gradle.api.PropertyName;
-import io.jmnarloch.cd.go.plugin.gradle.api.PropertyValue;
-import io.jmnarloch.cd.go.plugin.gradle.api.TaskConfiguration;
+import io.jmnarloch.cd.go.plugin.gradle.api.configuration.TaskConfiguration;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
@@ -83,7 +81,7 @@ public class AnnotatedEnumConfigurationProvider<T extends Enum> implements TaskC
             return null;
         }
 
-        final Map valueMap = new HashMap();
+        final Map<String, Object> valueMap = new HashMap<>();
         valueMap.put("default-value", value);
         return valueMap;
     }

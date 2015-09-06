@@ -32,8 +32,8 @@ jar {
         attributes 'Implementation-Title': 'Go Continous Delivery Gradle plugin',
                    'Implementation-Version': version
     }
-    from(buildDir) {
-        include 'lib/**'
+    into('lib') {
+        from configurations.compile
     }
 }
 
@@ -66,12 +66,6 @@ dependencies {
 }
 
 sourceSets.main.compileClasspath += [configurations.provided]
-
-task copyRuntimeLibs(type: Copy) {
-    into new File(buildDir, "lib")
-    from configurations.runtime
-}
-jar.dependsOn copyRuntimeLibs
 
 javadoc {
     classpath += [configurations.provided]

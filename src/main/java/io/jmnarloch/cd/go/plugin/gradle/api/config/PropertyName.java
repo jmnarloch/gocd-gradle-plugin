@@ -13,27 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.jmnarloch.cd.go.plugin.gradle.api;
+package io.jmnarloch.cd.go.plugin.gradle.api.config;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.lang.annotation.*;
 
 /**
  *
  */
-public final class ValidationErrors {
-
-    private final Map<String, String> errors = new HashMap<String, String>();
-
-    public void addError(String key, String message) {
-        errors.put(key, message);
-    }
-
-    public boolean hasErrors() {
-        return errors.isEmpty();
-    }
-
-    public Map<String, String> getErrors() {
-        return errors;
-    }
+@Documented
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.FIELD)
+public @interface PropertyName {
 }

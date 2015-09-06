@@ -13,10 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.jmnarloch.cd.go.plugin.gradle.task;
-
-import io.jmnarloch.cd.go.plugin.gradle.api.TaskValidator;
-import io.jmnarloch.cd.go.plugin.gradle.api.ValidationErrors;
+package io.jmnarloch.cd.go.plugin.gradle.api.validation;
 
 import java.util.Map;
 

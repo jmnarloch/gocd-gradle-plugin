@@ -15,8 +15,8 @@
  */
 package io.jmnarloch.cd.go.plugin.gradle.task;
 
-import io.jmnarloch.cd.go.plugin.gradle.api.PropertyName;
-import io.jmnarloch.cd.go.plugin.gradle.api.PropertyValue;
+import io.jmnarloch.cd.go.plugin.gradle.api.config.PropertyName;
+import io.jmnarloch.cd.go.plugin.gradle.api.config.PropertyValue;
 
 /**
  *
@@ -53,5 +53,9 @@ public enum GradleTaskConfig {
 
     public String getName() {
         return name;
+    }
+
+    public String getDefaultValue() {
+        return defaultValue;
     }
 }

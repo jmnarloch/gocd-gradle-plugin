@@ -13,18 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.jmnarloch.cd.go.plugin.gradle.api;
+package io.jmnarloch.cd.go.plugin.gradle.api.executor;
+
+import com.thoughtworks.go.plugin.api.task.JobConsoleLogger;
+import io.jmnarloch.cd.go.plugin.gradle.api.executor.ExecutionConfiguration;
+import io.jmnarloch.cd.go.plugin.gradle.api.executor.ExecutionContext;
+import io.jmnarloch.cd.go.plugin.gradle.api.executor.ExecutionResult;
 
 /**
  *
  */
-public class PluginException extends RuntimeException {
+public interface TaskExecutor {
 
-    public PluginException(String message) {
-        super(message);
-    }
-
-    public PluginException(String message, Throwable cause) {
-        super(message, cause);
-    }
+    ExecutionResult execute(ExecutionContext context, ExecutionConfiguration configuration, JobConsoleLogger console);
 }

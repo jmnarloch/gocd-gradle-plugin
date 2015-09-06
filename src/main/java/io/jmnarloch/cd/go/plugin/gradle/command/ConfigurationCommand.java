@@ -18,8 +18,8 @@ package io.jmnarloch.cd.go.plugin.gradle.command;
 import com.thoughtworks.go.plugin.api.request.GoPluginApiRequest;
 import com.thoughtworks.go.plugin.api.response.DefaultGoPluginApiResponse;
 import com.thoughtworks.go.plugin.api.response.GoPluginApiResponse;
-import io.jmnarloch.cd.go.plugin.gradle.api.ApiCommand;
-import io.jmnarloch.cd.go.plugin.gradle.api.TaskConfiguration;
+import io.jmnarloch.cd.go.plugin.gradle.api.command.ApiCommand;
+import io.jmnarloch.cd.go.plugin.gradle.api.configuration.TaskConfiguration;
 
 /**
  *
