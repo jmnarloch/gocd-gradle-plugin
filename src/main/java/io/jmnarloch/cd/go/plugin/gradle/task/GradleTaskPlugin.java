@@ -15,53 +15,32 @@
  */
 package io.jmnarloch.cd.go.plugin.gradle.task;
 
-import com.thoughtworks.go.plugin.api.GoApplicationAccessor;
-import com.thoughtworks.go.plugin.api.GoPlugin;
-import com.thoughtworks.go.plugin.api.GoPluginIdentifier;
 import com.thoughtworks.go.plugin.api.annotation.Extension;
-import com.thoughtworks.go.plugin.api.exceptions.UnhandledRequestTypeException;
-import com.thoughtworks.go.plugin.api.request.GoPluginApiRequest;
-import com.thoughtworks.go.plugin.api.response.GoPluginApiResponse;
 import io.jmnarloch.cd.go.plugin.gradle.api.config.AnnotatedEnumConfigurationProvider;
-import io.jmnarloch.cd.go.plugin.gradle.api.metadata.PluginMetadata;
+import io.jmnarloch.cd.go.plugin.gradle.api.plugin.AbstractGoPlugin;
 import io.jmnarloch.cd.go.plugin.gradle.api.request.ApiRequestDispatcher;
 import io.jmnarloch.cd.go.plugin.gradle.api.request.ApiRequestDispatcherBuilder;
 
-import java.util.Collections;
-
 /**
+ * The Gradle task plugin.
  *
+ * @author Jakub Narloch
  */
 @Extension
-public class GradleTaskPlugin implements GoPlugin {
+public class GradleTaskPlugin extends AbstractGoPlugin {
 
-    private final ApiRequestDispatcher dispatcher;
-
-    public GradleTaskPlugin() {
-
-        // builds the request dispatcher
-        dispatcher = ApiRequestDispatcherBuilder.dispatch()
-                .toConfiguration(new AnnotatedEnumConfigurationProvider<GradleTaskConfig>(GradleTaskConfig.class))
+    /**
+     * Builds the Gradle task plugin request dispatcher.
+     *
+     * @return the api dispatcher
+     */
+    @Override
+    protected ApiRequestDispatcher buildDispatcher() {
+        return ApiRequestDispatcherBuilder.dispatch()
+                .toConfiguration(new AnnotatedEnumConfigurationProvider<>(GradleTaskConfig.class))
                 .toValidator(new GradleTaskValidator())
                 .toView(new GradleTaskView())
                 .toExecutor(new GradleTaskExecutor())
                 .build();
-    }
-
-    @Override
-    public void initializeGoApplicationAccessor(GoApplicationAccessor goApplicationAccessor) {
-        // empty method
-    }
-
-    @Override
-    public GoPluginApiResponse handle(GoPluginApiRequest requestMessage) throws UnhandledRequestTypeException {
-        // dispatches the request to configured class
-        return dispatcher.dispatch(requestMessage);
-    }
-
-    @Override
-    public GoPluginIdentifier pluginIdentifier() {
-        final PluginMetadata pluginMetadata = PluginMetadata.getMetadata();
-        return new GoPluginIdentifier(pluginMetadata.getId(), Collections.singletonList(pluginMetadata.getVersion()));
     }
 }

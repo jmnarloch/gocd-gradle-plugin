@@ -13,24 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.jmnarloch.cd.go.plugin.gradle.api.command;
-
-import com.thoughtworks.go.plugin.api.request.GoPluginApiRequest;
-import com.thoughtworks.go.plugin.api.response.GoPluginApiResponse;
+package io.jmnarloch.cd.go.plugin.gradle.parser;
 
 /**
- * Basic API command. Each individual execution stage is being mapped to one of the registered commands which is
- * responsible for handling them.
+ * The JSON parser.
  *
  * @author Jakub Narloch
  */
-public interface ApiCommand {
+public interface JsonParser {
 
     /**
-     * Executes the specific API request.
+     * Parses the JSON input.
      *
-     * @param request the API request
-     * @return the API response
+     * @param json the JSON input
+     * @param type  the expected result type
+     * @param <T>   the expected type
+     * @return the parsed result
      */
-    GoPluginApiResponse execute(GoPluginApiRequest request);
+    <T> T fromJson(String json, Class<T> type);
 }

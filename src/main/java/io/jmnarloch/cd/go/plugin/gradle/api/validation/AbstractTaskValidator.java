@@ -18,12 +18,23 @@ package io.jmnarloch.cd.go.plugin.gradle.api.validation;
 import java.util.Map;
 
 /**
+ * The base task configuration validator.
  *
+ * @author Jakub Narloch
  */
 public abstract class AbstractTaskValidator implements TaskValidator {
 
+    /**
+     * Template method for performing the validation.
+     *
+     * @param properties the task configuration
+     * @param errors any task validation errors
+     */
     public abstract void validate(Map<String, Object> properties, ValidationErrors errors);
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public ValidationErrors validate(Map<String, Object> properties) {
 
@@ -32,6 +43,13 @@ public abstract class AbstractTaskValidator implements TaskValidator {
         return errors;
     }
 
+    /**
+     * Retrieves the specific property value.
+     *
+     * @param properties the properties map
+     * @param propertyName the property name
+     * @return the property value or null if not present
+     */
     protected String getProperty(Map<String, Object> properties, String propertyName) {
 
         if (!properties.containsKey(propertyName)) {

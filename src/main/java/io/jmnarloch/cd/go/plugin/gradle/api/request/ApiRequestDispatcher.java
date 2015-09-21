@@ -20,9 +20,20 @@ import com.thoughtworks.go.plugin.api.request.GoPluginApiRequest;
 import com.thoughtworks.go.plugin.api.response.GoPluginApiResponse;
 
 /**
+ * The API request dispatcher. The Go Server is going to issue multiple API calls during different stages of
+ * plugin lifecycle, for instance requesting the plugin configuration scheme, plugin view (if any) or finally to
+ * execute the task itself.
  *
+ * @author Jakub Naroch
  */
 public interface ApiRequestDispatcher {
 
+    /**
+     * Handles the API request and delegates it towards registered handler.
+     *
+     * @param request the API request
+     * @return the API execution response
+     * @throws UnhandledRequestTypeException if any error occurs during the execution
+     */
     GoPluginApiResponse dispatch(GoPluginApiRequest request) throws UnhandledRequestTypeException;
 }

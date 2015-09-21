@@ -16,14 +16,27 @@
 package io.jmnarloch.cd.go.plugin.gradle.api.exception;
 
 /**
+ * The base exception used by the plugin API used to trigger any error situations.
  *
+ * @author Jakub Narloch
  */
 public class PluginException extends RuntimeException {
 
+    /**
+     * Creates new instance of {@link PluginException} class with detailed error message.
+     *
+     * @param message the detailed error message
+     */
     public PluginException(String message) {
         super(message);
     }
 
+    /**
+     * Creates new instance of {@link PluginException} class with detailed error message and inner cause.
+     *
+     * @param message the detailed error message
+     * @param cause the inner cause
+     */
     public PluginException(String message, Throwable cause) {
         super(message, cause);
     }

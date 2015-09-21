@@ -21,26 +21,41 @@ import org.apache.commons.io.IOUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 
 /**
+ * The Gradle task view.
+ *
  * @author Jakub Narloch
  */
 public class GradleTaskView implements TaskView {
 
+    /**
+     * The Gradle task view name.
+     */
     private static final String NAME = "Gradle";
-    private static final String TEMPLATE_PATH = "/views/gradle.task.template.html";
-    private static final String UTF_CHARSET = "UTF-8";
 
+    /**
+     * The Gradle view template path.
+     */
+    private static final String TEMPLATE_PATH = "/views/gradle.task.template.html";
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String displayValue() {
         return NAME;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String template() {
 
         try(InputStream inputStream = getClass().getResourceAsStream(TEMPLATE_PATH)) {
-            return IOUtils.toString(inputStream, UTF_CHARSET);
+            return IOUtils.toString(inputStream, StandardCharsets.UTF_8);
         } catch (IOException e) {
             throw new PluginException("The view template could not be loaded.", e);
         }

@@ -32,52 +32,116 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
+ * The convenient plugin request dispatcher builder. It creates the new {@link ApiRequestDispatcherBuilder} that will
+ * handle incoming request and map those to the registered {@link ApiCommand}.
  *
+ * @author Jakub Narloch
  */
 public class ApiRequestDispatcherBuilder {
 
+    /**
+     * Stores the mapping between the API commands and the registered handlers.
+     */
     private final Map<String, ApiCommand> commands = new ConcurrentHashMap<String, ApiCommand>();
 
+    /**
+     * Registers the task configuration provider.
+     *
+     * @param taskConfiguration the task configuration
+     * @return the dispatcher builder
+     */
     public ApiRequestDispatcherBuilder toConfiguration(TaskConfiguration taskConfiguration) {
         return addCommand(ApiRequests.CONFIGURATION, new ConfigurationCommand(taskConfiguration));
     }
 
+    /**
+     * Registers the task configuration validator.
+     *
+     * @param taskValidator the task configuration validator
+     * @return the dispatcher builder
+     */
     public ApiRequestDispatcherBuilder toValidator(TaskValidator taskValidator) {
         return addCommand(ApiRequests.VALIDATE, new ValidateCommand(taskValidator));
     }
 
+    /**
+     * Registers the task view.
+     *
+     * @param taskView the task view
+     * @return the dispatcher builder
+     */
     public ApiRequestDispatcherBuilder toView(TaskView taskView) {
         return addCommand(ApiRequests.VIEW, new ViewCommand(taskView));
     }
 
+    /**
+     * Registers the task executor.
+     *
+     * @param taskExecutor the task executor
+     * @return the dispatcher builder
+     */
     public ApiRequestDispatcherBuilder toExecutor(TaskExecutor taskExecutor) {
         return addCommand(ApiRequests.EXECUTE, new TaskCommand(taskExecutor));
     }
 
+    /**
+     * Builds the api request dispatcher.
+     *
+     * @return the dispatcher builder
+     */
     public ApiRequestDispatcher build() {
         return new ApiRequestDispatcherImpl(commands);
     }
 
+    /**
+     * Creates new instance of dispatcher builder.
+     *
+     * @return the dispatcher builder
+     */
     public static ApiRequestDispatcherBuilder dispatch() {
         return new ApiRequestDispatcherBuilder();
     }
 
+    /**
+     * Registers the API command.
+     *
+     * @param name the API request
+     * @param command the handler
+     * @return the dispatcher builder
+     */
     private ApiRequestDispatcherBuilder addCommand(String name, ApiCommand command) {
         this.commands.put(name, command);
         return this;
     }
 
+    /**
+     * The base implementation of {@link ApiRequestDispatcher}.
+     *
+     * @author Jakub Narloch
+     */
     private static class ApiRequestDispatcherImpl implements ApiRequestDispatcher {
 
+        /**
+         * Stores the mapping between the API commands and the registered handlers.
+         */
         private final Map<String, ApiCommand> commands;
 
+        /**
+         * Creates new instance of {@link ApiRequestDispatcherImpl} class.
+         *
+         * @param commands the commands mapping
+         */
         private ApiRequestDispatcherImpl(Map<String, ApiCommand> commands) {
-            this.commands = new ConcurrentHashMap<String, ApiCommand>(commands);
+            this.commands = new ConcurrentHashMap<>(commands);
         }
 
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public GoPluginApiResponse dispatch(GoPluginApiRequest request) throws UnhandledRequestTypeException {
 
+            // TOOD validate the input
             final ApiCommand command = commands.get(request.requestName());
             if(command != null) {
                 return command.execute(request);

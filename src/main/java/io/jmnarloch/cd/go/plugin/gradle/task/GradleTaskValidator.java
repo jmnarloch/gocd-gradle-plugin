@@ -22,10 +22,15 @@ import org.apache.commons.lang3.StringUtils;
 import java.util.Map;
 
 /**
+ * The Gradle task validator.
  *
+ * @author Jakub Narloch
  */
 public class GradleTaskValidator extends AbstractTaskValidator {
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void validate(Map<String, Object> properties, ValidationErrors errors) {
 

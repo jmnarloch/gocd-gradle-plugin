@@ -18,9 +18,17 @@ package io.jmnarloch.cd.go.plugin.gradle.api.validation;
 import java.util.Map;
 
 /**
+ * Task configuration validator. Provides the base contract to be implemented by specific configuration validators.
  *
+ * @author Jakub Narloch
  */
 public interface TaskValidator {
 
+    /**
+     * The task validator.
+     *
+     * @param properties the properties to validate
+     * @return the validation result
+     */
     ValidationErrors validate(Map<String, Object> properties);
 }

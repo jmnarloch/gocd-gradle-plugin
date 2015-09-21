@@ -19,7 +19,6 @@ import com.thoughtworks.go.plugin.api.request.GoPluginApiRequest;
 import com.thoughtworks.go.plugin.api.response.DefaultGoPluginApiResponse;
 import com.thoughtworks.go.plugin.api.response.GoPluginApiResponse;
 import com.thoughtworks.go.plugin.api.task.JobConsoleLogger;
-import io.jmnarloch.cd.go.plugin.gradle.api.command.ApiCommand;
 import io.jmnarloch.cd.go.plugin.gradle.api.exception.PluginException;
 import io.jmnarloch.cd.go.plugin.gradle.api.executor.ExecutionConfiguration;
 import io.jmnarloch.cd.go.plugin.gradle.api.executor.ExecutionContext;
@@ -32,7 +31,7 @@ import java.util.Map;
 /**
  *
  */
-public class TaskCommand extends BaseCommand implements ApiCommand {
+public class TaskCommand extends BaseCommand {
 
     private final TaskExecutor taskExecutor;
 

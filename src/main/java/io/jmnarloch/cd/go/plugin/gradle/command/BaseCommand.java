@@ -15,34 +15,66 @@
  */
 package io.jmnarloch.cd.go.plugin.gradle.command;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.thoughtworks.go.plugin.api.request.GoPluginApiRequest;
 import com.thoughtworks.go.plugin.api.response.DefaultGoPluginApiResponse;
 import com.thoughtworks.go.plugin.api.response.GoPluginApiResponse;
+import io.jmnarloch.cd.go.plugin.gradle.api.command.ApiCommand;
+import io.jmnarloch.cd.go.plugin.gradle.parser.AbstractJsonParser;
+import io.jmnarloch.cd.go.plugin.gradle.parser.gson.GsonParser;
 
 import java.util.Map;
 
 /**
+ * The convenient base command class. Provides the common functionality for all the commands.
  *
+ * @author Jakub Narloch
  */
-public abstract class BaseCommand {
+public abstract class BaseCommand implements ApiCommand {
 
-    private final Gson gson;
+    /**
+     * The JSON parser.
+     */
+    private final AbstractJsonParser parser;
 
+    /**
+     * Creates the new instance of the {@link BaseCommand}.
+     */
     public BaseCommand() {
-        gson = new GsonBuilder().serializeNulls().create();
+        this(new GsonParser());
     }
 
+    /**
+     * Creates the new instance of the {@link BaseCommand} with the specific request parser.
+     *
+     * @param parser the request parser
+     */
+    public BaseCommand(AbstractJsonParser parser) {
+
+        // TODO validate the input
+        this.parser = parser;
+    }
+
+    /**
+     * Parses the API request and returns it content as key/value collection
+     * @param request the API request
+     * @return the key/value request map
+     */
     protected Map parseRequest(GoPluginApiRequest request) {
 
-        return gson.fromJson(request.requestBody(), Map.class);
+        return parser.fromJson(request.requestBody(), Map.class);
     }
 
+    /**
+     * Creates the response with the specific response code and content.
+     *
+     * @param responseCode the response code
+     * @param body         the body content
+     * @return the API response
+     */
     protected GoPluginApiResponse createResponse(int responseCode, Map body) {
 
         final DefaultGoPluginApiResponse response = new DefaultGoPluginApiResponse(responseCode);
-        response.setResponseBody(gson.toJson(body));
+        response.setResponseBody(parser.toJson(body));
         return response;
     }
 }

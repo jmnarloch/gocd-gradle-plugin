@@ -18,7 +18,9 @@ package io.jmnarloch.cd.go.plugin.gradle.api.config;
 import java.lang.annotation.*;
 
 /**
+ * Identifies the attribute within the enumeration that stores the configuration property name.
  *
+ * @author Jakub Narloch
  */
 @Documented
 @Retention(RetentionPolicy.RUNTIME)

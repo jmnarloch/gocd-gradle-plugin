@@ -25,28 +25,61 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
+ * The simple utility for reading plugin metadata from {@code plugin.xml} files.
  *
+ * @author Jakub Narloch
  */
 public class PluginMetadata {
 
+    /**
+     * Stores the current plugin metadata information, those are being lazy loaded on first usage.
+     */
     private static PluginMetadata pluginMetadata;
 
+    /**
+     * The plugin unique id.
+     */
     private final String id;
+
+    /**
+     * The plugin version.
+     */
     private final String version;
 
-    public PluginMetadata(String id, String version) {
+    /**
+     * The plugin metadata.
+     *
+     * @param id      the plugin id
+     * @param version the plugin version
+     */
+    private PluginMetadata(String id, String version) {
         this.id = id;
         this.version = version;
     }
 
+    /**
+     * Retrieves the plugin id.
+     *
+     * @return the plugin id
+     */
     public String getId() {
         return id;
     }
 
+    /**
+     * Retrieves the plugin version.
+     *
+     * @return the plugin version
+     */
     public String getVersion() {
         return version;
     }
 
+    /**
+     * Reads the plugin metadata.
+     *
+     * @return the plugin metadata
+     */
     public synchronized static PluginMetadata getMetadata() {
 
         if(pluginMetadata == null) {

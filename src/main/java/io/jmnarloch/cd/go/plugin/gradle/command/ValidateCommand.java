@@ -18,7 +18,6 @@ package io.jmnarloch.cd.go.plugin.gradle.command;
 import com.thoughtworks.go.plugin.api.request.GoPluginApiRequest;
 import com.thoughtworks.go.plugin.api.response.DefaultGoPluginApiResponse;
 import com.thoughtworks.go.plugin.api.response.GoPluginApiResponse;
-import io.jmnarloch.cd.go.plugin.gradle.api.command.ApiCommand;
 import io.jmnarloch.cd.go.plugin.gradle.api.validation.TaskValidator;
 import io.jmnarloch.cd.go.plugin.gradle.api.validation.ValidationErrors;
 
@@ -28,7 +27,7 @@ import java.util.Map;
 /**
  *
  */
-public class ValidateCommand extends BaseCommand implements ApiCommand {
+public class ValidateCommand extends BaseCommand {
 
     private final TaskValidator taskValidator;
 

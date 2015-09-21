@@ -33,12 +33,24 @@ import java.util.Map;
  */
 public class GradleTaskExecutor implements TaskExecutor {
 
+    /**
+     * The logger isntance used by this class.
+     */
     private static final Logger logger = Logger.getLoggerFor(GradleTaskExecutor.class);
 
+    /**
+     * The build success message.
+     */
     private static final String SUCCESS = "Build success";
 
+    /**
+     * The build failure message.
+     */
     private static final String FAILURE = "Build failure";
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public ExecutionResult execute(ExecutionContext context, ExecutionConfiguration configuration, JobConsoleLogger console) {
 
@@ -62,6 +74,14 @@ public class GradleTaskExecutor implements TaskExecutor {
         }
     }
 
+    /**
+     * Builds the Gradle process for later execution, it configures all the build properties based on the current
+     * task configuration. It also takes into account the current task execution context.
+     *
+     * @param config the task configuration
+     * @param environment the task execution environment
+     * @return the created Gradle build process
+     */
     private static ProcessBuilder buildGradleProcess(ExecutionConfiguration config, ExecutionContext environment) {
         final Map<String, String> env = environment.getEnvironmentVariables();
 
@@ -75,6 +95,15 @@ public class GradleTaskExecutor implements TaskExecutor {
         return builder;
     }
 
+    /**
+     * Executes the actual Gradle build.
+     *
+     * @param builder the process builder
+     * @param console the log output
+     * @return the process return value
+     * @throws IOException          if any error occurs during I/O operation
+     * @throws InterruptedException if any error occurs during process execution
+     */
     private static int execute(ProcessBuilder builder, JobConsoleLogger console) throws IOException, InterruptedException {
 
         Process process = null;
@@ -91,21 +120,35 @@ public class GradleTaskExecutor implements TaskExecutor {
         }
     }
 
+    /**
+     * Returns whether the build completed with success.
+     *
+     * @param result the build execution result
+     * @return flag indicating whether the process completed with success
+     */
     private static boolean isSuccess(int result) {
         return result == 0;
     }
 
+    /**
+     * Utility method that parses the task configuration and builds the list of command line arguments to be passed to
+     * the Gradle process.
+     *
+     * @param config the task configuration
+     * @param env the task environment
+     * @return the list of Gradle commandline arguments
+     */
     private static List<String> parse(ExecutionConfiguration config, Map<String, String> env) {
 
         return GradleTaskConfigParser.fromConfig(config.getConfiguration())
                 .withEnvironment(env)
-                .useWrapper(GradleTaskOptions.USE_WRAPPER_KEY)
-                .withGradleHome(GradleTaskOptions.GRADLE_HOME_KEY)
-                .withTasks(GradleTaskOptions.TASKS_KEY)
-                .withOption(GradleTaskOptions.DEBUG_KEY, "--debug")
-                .withOption(GradleTaskOptions.OFFLINE_KEY, "--offline")
-                .withOption(GradleTaskOptions.DAEMON_KEY, "--daemon")
-                .withAdditionalOptions(GradleTaskOptions.ADDITIONAL_OPTIONS_KEY)
+                .useWrapper(GradleTaskConfig.USE_WRAPPER.getName())
+                .withGradleHome(GradleTaskConfig.GRADLE_HOME.getName())
+                .withTasks(GradleTaskConfig.TASKS.getName())
+                .withOption(GradleTaskConfig.DEBUG.getName(), "--debug")
+                .withOption(GradleTaskConfig.OFFLINE.getName(), "--offline")
+                .withOption(GradleTaskConfig.DAEMON.getName(), "--daemon")
+                .withAdditionalOptions(GradleTaskConfig.ADDITIONAL_OPTIONS.getName())
                 .build();
     }
 }

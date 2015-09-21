@@ -13,24 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.jmnarloch.cd.go.plugin.gradle.api.command;
-
-import com.thoughtworks.go.plugin.api.request.GoPluginApiRequest;
-import com.thoughtworks.go.plugin.api.response.GoPluginApiResponse;
+package io.jmnarloch.cd.go.plugin.gradle.parser;
 
 /**
- * Basic API command. Each individual execution stage is being mapped to one of the registered commands which is
- * responsible for handling them.
+ * The abstract JSON parser.
  *
  * @author Jakub Narloch
  */
-public interface ApiCommand {
-
-    /**
-     * Executes the specific API request.
-     *
-     * @param request the API request
-     * @return the API response
-     */
-    GoPluginApiResponse execute(GoPluginApiRequest request);
+public abstract class AbstractJsonParser implements JsonParser, JsonWriter {
 }

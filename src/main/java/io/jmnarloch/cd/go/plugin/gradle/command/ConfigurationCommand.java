@@ -24,7 +24,7 @@ import io.jmnarloch.cd.go.plugin.gradle.api.configuration.TaskConfiguration;
 /**
  *
  */
-public class ConfigurationCommand extends BaseCommand implements ApiCommand {
+public class ConfigurationCommand extends BaseCommand {
 
     private final TaskConfiguration taskConfiguration;
 

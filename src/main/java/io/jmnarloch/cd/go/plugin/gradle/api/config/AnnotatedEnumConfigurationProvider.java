@@ -68,7 +68,7 @@ public class AnnotatedEnumConfigurationProvider<T extends Enum> implements TaskC
     }
 
     private Field getPropertyValue(Class<T> enumClass) {
-        return getAnnotatedField(enumClass, PropertyValue.class);
+        return getAnnotatedField(enumClass, DefaultValue.class);
     }
 
     private Map getPropertyDefaultValue(Field propertyValueField, T field) throws IllegalAccessException {

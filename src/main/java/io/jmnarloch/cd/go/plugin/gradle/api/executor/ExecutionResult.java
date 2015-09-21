@@ -16,36 +16,48 @@
 package io.jmnarloch.cd.go.plugin.gradle.api.executor;
 
 /**
+ * The task execution result.
  *
+ * @author Jakub Narloch
  */
 public class ExecutionResult {
 
+    /**
+     * Indicates whether task completed with success.
+     */
     private final boolean success;
 
+    /**
+     * Any additional task execution message.
+     */
     private final String message;
 
+    /**
+     * The exception that occurred during execution, if any.
+     */
     private final Exception exception;
 
+    /**
+     * Creates instance of {@link ExecutionResult} with the detailed message.
+     *
+     * @param success flag indicating whether the task completed with success
+     * @param message the additional message
+     */
     private ExecutionResult(boolean success, String message) {
         this(success, message, null);
     }
 
+    /**
+     * Creates instance of {@link ExecutionResult} with the detailed message and exception.
+     * @param success flag indicating whether the task completed with success
+     * @param message the additional message
+     * @param exc the optional exception
+     */
     private ExecutionResult(boolean success, String message, Exception exc) {
+
         this.success = success;
         this.message = message;
         this.exception = exc;
-    }
-
-    public static ExecutionResult success(String message) {
-        return new ExecutionResult(true, message);
-    }
-
-    public static ExecutionResult failure(String message) {
-        return failure(message, null);
-    }
-
-    public static ExecutionResult failure(String message, Exception exc) {
-        return new ExecutionResult(false, message, exc);
     }
 
     public boolean isSuccess() {
@@ -58,5 +70,36 @@ public class ExecutionResult {
 
     public Exception getException() {
         return exception;
+    }
+
+    /**
+     * Creates new successful execution result.
+     *
+     * @param message the optional message
+     * @return the successful task execution result
+     */
+    public static ExecutionResult success(String message) {
+        return new ExecutionResult(true, message);
+    }
+
+    /**
+     * Creates new failure execution result.
+     *
+     * @param message the optional message
+     * @return the failed task execution result
+     */
+    public static ExecutionResult failure(String message) {
+        return failure(message, null);
+    }
+
+    /**
+     * Creates new failure execution result.
+     *
+     * @param message the optional message
+     * @param exc     the optional exception
+     * @return the failed task execution result
+     */
+    public static ExecutionResult failure(String message, Exception exc) {
+        return new ExecutionResult(false, message, exc);
     }
 }

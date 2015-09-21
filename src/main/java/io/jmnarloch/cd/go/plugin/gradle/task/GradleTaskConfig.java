@@ -16,45 +16,95 @@
 package io.jmnarloch.cd.go.plugin.gradle.task;
 
 import io.jmnarloch.cd.go.plugin.gradle.api.config.PropertyName;
-import io.jmnarloch.cd.go.plugin.gradle.api.config.PropertyValue;
+import io.jmnarloch.cd.go.plugin.gradle.api.config.DefaultValue;
 
 /**
+ * The Gradle task configuration.
  *
+ * @author Jakub Narloch
  */
 public enum GradleTaskConfig {
 
+    /**
+     * Whether to use the Gradle wrapper.
+     */
     USE_WRAPPER("UseWrapper", "true"),
 
+    /**
+     * The Gradle home directory.
+     */
     GRADLE_HOME("GradleHome"),
 
+    /**
+     * The tasks (goals) to execute.
+     */
     TASKS("Tasks"),
 
+    /**
+     * Whether to use run build through Gradle deamon.
+     */
     DAEMON("Deamon"),
 
+    /**
+     * Whether to run the build in offline mode.
+     */
     OFFLINE("Offline"),
 
+    /**
+     * Whether to output the build log in debug mode.
+     */
     DEBUG("Debug"),
 
+    /**
+     * Additional options to be passed to Gradle process.
+     */
     ADDITIONAL_OPTIONS("AdditionalOptions");
 
+    /**
+     * The property name.
+     */
     @PropertyName
     private String name;
 
-    @PropertyValue
+    /**
+     * The property default value if any.
+     */
+    @DefaultValue
     private String defaultValue;
 
+    /**
+     * Creates new instance of {@link GradleTaskConfig} with property name.
+     *
+     * @param name the property name
+     */
     GradleTaskConfig(String name) {
         this(name, null);
     }
 
+    /**
+     * Creates new instance of {@link GradleTaskConfig} with property name and default value.
+     *
+     * @param name the configuration property name
+     * @param defaultValue the configuration property default value, maybe null
+     */
     GradleTaskConfig(String name, String defaultValue) {
         this.name = name;
     }
 
+    /**
+     * Retrieves the configuration property name.
+     *
+     * @return the configuration property name
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Retrieves the configuration property default value.
+     *
+     * @return the configuration property default value
+     */
     public String getDefaultValue() {
         return defaultValue;
     }

@@ -15,21 +15,37 @@
  */
 package io.jmnarloch.cd.go.plugin.gradle.api.executor;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * The task execution configuration.
  *
+ * @author Jakub Narloch
  */
 public class ExecutionConfiguration {
 
+    /**
+     * The configuration property map.
+     */
     private final Map<String, String> configuration;
 
-    public ExecutionConfiguration(Map configuration) {
+    /**
+     * Creates new instance of {@link ExecutionConfiguration}.
+     *
+     * @param configuration the task configuration
+     */
+    public ExecutionConfiguration(Map<String, String> configuration) {
 
-        // TODO either cast this or copy with key/value string conversion
-        this.configuration = configuration;
+        // TODO validate the input
+        this.configuration = new HashMap<>(configuration);
     }
 
+    /**
+     * Retrives the task execution configuration.
+     *
+     * @return the configuration
+     */
     public Map<String, String> getConfiguration() {
         return configuration;
     }

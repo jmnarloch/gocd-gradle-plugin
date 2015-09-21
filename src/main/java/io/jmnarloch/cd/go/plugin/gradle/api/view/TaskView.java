@@ -16,11 +16,23 @@
 package io.jmnarloch.cd.go.plugin.gradle.api.view;
 
 /**
+ * Provides the task view.
  *
+ * @author Jakub Narloch
  */
 public interface TaskView {
 
+    /**
+     * The task display name.
+     *
+     * @return the display name
+     */
     String displayValue();
 
+    /**
+     * The task view template.
+     *
+     * @return the task view template
+     */
     String template();
 }

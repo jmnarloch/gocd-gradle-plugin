@@ -18,9 +18,18 @@ package io.jmnarloch.cd.go.plugin.gradle.api.configuration;
 import java.util.Map;
 
 /**
+ * Provides the configuration for the the plugin. The configuration is being returned in a form of key/value pairs.
+ * The property name is used as a key, while the value can be represented as {@code null} or a object representing
+ * the default value.
  *
+ * @author Jakub Narloch
  */
 public interface TaskConfiguration {
 
+    /**
+     * Returns the task configuration in a form of key/value pairs.
+     *
+     * @return the task configuration
+     */
     Map getTaskConfiguration();
 }

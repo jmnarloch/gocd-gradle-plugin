@@ -13,24 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.jmnarloch.cd.go.plugin.gradle.task;
+package io.jmnarloch.cd.go.plugin.gradle.parser;
 
 /**
+ * The JSON object writer.
+ *
  * @author Jakub Narloch
  */
-public interface GradleTaskOptions {
+public interface JsonWriter {
 
-    String USE_WRAPPER_KEY = "UseWrapper";
-
-    String GRADLE_HOME_KEY = "GradleHome";
-
-    String TASKS_KEY = "Tasks";
-
-    String DAEMON_KEY = "Deamon";
-
-    String OFFLINE_KEY = "Offline";
-
-    String DEBUG_KEY = "Debug";
-
-    String ADDITIONAL_OPTIONS_KEY = "AdditionalOptions";
+    /**
+     * Writes the object graph into JSON representation.
+     *
+     * @param value the object
+     * @return the JSON notation representation of the object graph
+     */
+    String toJson(Object value);
 }
