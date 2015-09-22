@@ -13,22 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.jmnarloch.cd.go.plugin.gradle.parser;
+package io.jmnarloch.cd.go.plugin.gradle.api.parser;
 
 /**
- * The JSON parser.
+ * The JSON object writer.
  *
  * @author Jakub Narloch
  */
-public interface JsonParser {
+public interface JsonWriter {
 
     /**
-     * Parses the JSON input.
+     * Writes the object graph into JSON representation.
      *
-     * @param json the JSON input
-     * @param type  the expected result type
-     * @param <T>   the expected type
-     * @return the parsed result
+     * @param value the object
+     * @return the JSON notation representation of the object graph
      */
-    <T> T fromJson(String json, Class<T> type);
+    String toJson(Object value);
 }

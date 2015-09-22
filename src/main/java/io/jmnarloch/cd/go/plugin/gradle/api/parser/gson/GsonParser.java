@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.jmnarloch.cd.go.plugin.gradle.parser.gson;
+package io.jmnarloch.cd.go.plugin.gradle.api.parser.gson;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import io.jmnarloch.cd.go.plugin.gradle.parser.AbstractJsonParser;
+import io.jmnarloch.cd.go.plugin.gradle.api.parser.AbstractJsonParser;
 
 /**
  * The {@link Gson} JSON parser.

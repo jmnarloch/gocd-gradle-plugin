@@ -13,9 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.jmnarloch.cd.go.plugin.gradle.api.request;
+package io.jmnarloch.cd.go.plugin.gradle.api.dispatcher;
 
 import com.thoughtworks.go.plugin.api.exceptions.UnhandledRequestTypeException;
+import com.thoughtworks.go.plugin.api.logging.Logger;
 import com.thoughtworks.go.plugin.api.request.GoPluginApiRequest;
 import com.thoughtworks.go.plugin.api.response.GoPluginApiResponse;
 import io.jmnarloch.cd.go.plugin.gradle.api.command.ApiCommand;
@@ -122,6 +123,11 @@ public class ApiRequestDispatcherBuilder {
     private static class ApiRequestDispatcherImpl implements ApiRequestDispatcher {
 
         /**
+         * The logger instance by this class hierarchy.
+         */
+        private final Logger logger = Logger.getLoggerFor(getClass());
+
+        /**
          * Stores the mapping between the API commands and the registered handlers.
          */
         private final Map<String, ApiCommand> commands;
@@ -141,11 +147,14 @@ public class ApiRequestDispatcherBuilder {
         @Override
         public GoPluginApiResponse dispatch(GoPluginApiRequest request) throws UnhandledRequestTypeException {
 
-            // TOOD validate the input
+            // TODO validate the input
+
             final ApiCommand command = commands.get(request.requestName());
             if(command != null) {
+                logger.info("Found command for request: " + request.requestName());
                 return command.execute(request);
             }
+            logger.info("No command found for request: " + request.requestName());
 
             throw new UnhandledRequestTypeException(request.requestName());
         }

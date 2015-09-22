@@ -13,18 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.jmnarloch.cd.go.plugin.gradle.api.request;
+package io.jmnarloch.cd.go.plugin.gradle.api.parser;
 
 /**
+ * The JSON parser.
  *
+ * @author Jakub Narloch
  */
-public interface ApiRequests {
+public interface JsonParser {
 
-    String CONFIGURATION = "configuration";
-
-    String VALIDATE = "validate";
-
-    String VIEW = "view";
-
-    String EXECUTE = "execute";
+    /**
+     * Parses the JSON input.
+     *
+     * @param json the JSON input
+     * @param type  the expected result type
+     * @param <T>   the expected type
+     * @return the parsed result
+     */
+    <T> T fromJson(String json, Class<T> type);
 }

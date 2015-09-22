@@ -13,20 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.jmnarloch.cd.go.plugin.gradle.parser;
+package io.jmnarloch.cd.go.plugin.gradle.api.dispatcher;
 
 /**
- * The JSON object writer.
+ * The enumeration of the API requests.
  *
  * @author Jakub Narloch
  */
-public interface JsonWriter {
+public interface ApiRequests {
 
-    /**
-     * Writes the object graph into JSON representation.
-     *
-     * @param value the object
-     * @return the JSON notation representation of the object graph
-     */
-    String toJson(Object value);
+    String CONFIGURATION = "configuration";
+
+    String VALIDATE = "validate";
+
+    String VIEW = "view";
+
+    String EXECUTE = "execute";
 }

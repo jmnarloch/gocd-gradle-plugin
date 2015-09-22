@@ -19,10 +19,11 @@ import com.thoughtworks.go.plugin.api.GoApplicationAccessor;
 import com.thoughtworks.go.plugin.api.GoPlugin;
 import com.thoughtworks.go.plugin.api.GoPluginIdentifier;
 import com.thoughtworks.go.plugin.api.exceptions.UnhandledRequestTypeException;
+import com.thoughtworks.go.plugin.api.logging.Logger;
 import com.thoughtworks.go.plugin.api.request.GoPluginApiRequest;
 import com.thoughtworks.go.plugin.api.response.GoPluginApiResponse;
+import io.jmnarloch.cd.go.plugin.gradle.api.dispatcher.ApiRequestDispatcher;
 import io.jmnarloch.cd.go.plugin.gradle.api.metadata.PluginMetadata;
-import io.jmnarloch.cd.go.plugin.gradle.api.request.ApiRequestDispatcher;
 
 import java.util.Collections;
 
@@ -33,6 +34,11 @@ import java.util.Collections;
  * @author Jakub Narloch
  */
 public abstract class AbstractGoPlugin implements GoPlugin {
+
+    /**
+     * The logger instance by this class hierarchy.
+     */
+    private final Logger logger = Logger.getLoggerFor(getClass());
 
     /**
      * The request dispatcher.
@@ -61,8 +67,16 @@ public abstract class AbstractGoPlugin implements GoPlugin {
      */
     @Override
     public GoPluginApiResponse handle(GoPluginApiRequest requestMessage) throws UnhandledRequestTypeException {
-        // dispatches the request to configured class
-        return dispatcher.dispatch(requestMessage);
+
+        try {
+            logger.debug("Dispatching request: " + requestMessage.requestName());
+
+            // dispatches the request to configured class
+            return dispatcher.dispatch(requestMessage);
+        } catch (UnhandledRequestTypeException e) {
+            logger.error("Unexpected error occurred when processing request.", e);
+            throw e;
+        }
     }
 
     /**

@@ -32,6 +32,11 @@ import java.io.InputStream;
 public class PluginMetadata {
 
     /**
+     * The path to the plugin XML descriptor file.
+     */
+    private static final String PLUGIN_DESCRIPTOR = "/plugin.xml";
+
+    /**
      * Stores the current plugin metadata information, those are being lazy loaded on first usage.
      */
     private static PluginMetadata pluginMetadata;
@@ -83,20 +88,24 @@ public class PluginMetadata {
     public synchronized static PluginMetadata getMetadata() {
 
         if(pluginMetadata == null) {
+
             String id = null;
             String version = null;
 
-            try(final InputStream inputStream = PluginMetadata.class.getResourceAsStream("/plugin.xml")) {
+            try(final InputStream inputStream = PluginMetadata.class.getResourceAsStream(PLUGIN_DESCRIPTOR)) {
 
-                final XMLInputFactory f = XMLInputFactory.newInstance();
-                final XMLStreamReader r = f.createXMLStreamReader(inputStream);
-                while (r.hasNext()) {
-                    final int eventType = r.next();
-                    if(eventType == XMLEvent.START_ELEMENT) {
-                        if ("name".equals(r.getLocalName())) {
-                            id = r.getText();
-                        } else if ("version".equals(r.getLocalName())) {
-                            version = r.getText();
+                final XMLInputFactory factory = XMLInputFactory.newInstance();
+                final XMLStreamReader reader = factory.createXMLStreamReader(inputStream);
+                while (reader.hasNext()) {
+                    final int eventType = reader.next();
+                    if(eventType == XMLEvent.START_ELEMENT && "go-plugin".equals(reader.getLocalName())) {
+
+                        for(int attr = 0; attr < reader.getAttributeCount(); attr++) {
+                            if("id".equals(reader.getAttributeLocalName(attr))) {
+                                id = reader.getAttributeValue(attr);
+                            } else if("version".equals(reader.getAttributeLocalName(attr))) {
+                                version = reader.getAttributeValue(attr);
+                            }
                         }
                     }
                 }

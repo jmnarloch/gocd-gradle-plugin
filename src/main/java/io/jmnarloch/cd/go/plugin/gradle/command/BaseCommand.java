@@ -19,8 +19,8 @@ import com.thoughtworks.go.plugin.api.request.GoPluginApiRequest;
 import com.thoughtworks.go.plugin.api.response.DefaultGoPluginApiResponse;
 import com.thoughtworks.go.plugin.api.response.GoPluginApiResponse;
 import io.jmnarloch.cd.go.plugin.gradle.api.command.ApiCommand;
-import io.jmnarloch.cd.go.plugin.gradle.parser.AbstractJsonParser;
-import io.jmnarloch.cd.go.plugin.gradle.parser.gson.GsonParser;
+import io.jmnarloch.cd.go.plugin.gradle.api.parser.AbstractJsonParser;
+import io.jmnarloch.cd.go.plugin.gradle.api.parser.gson.GsonParser;
 
 import java.util.Map;
 

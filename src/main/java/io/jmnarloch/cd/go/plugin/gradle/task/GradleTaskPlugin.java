@@ -17,9 +17,11 @@ package io.jmnarloch.cd.go.plugin.gradle.task;
 
 import com.thoughtworks.go.plugin.api.annotation.Extension;
 import io.jmnarloch.cd.go.plugin.gradle.api.config.AnnotatedEnumConfigurationProvider;
+import io.jmnarloch.cd.go.plugin.gradle.api.dispatcher.ApiRequestDispatcher;
+import io.jmnarloch.cd.go.plugin.gradle.api.dispatcher.ApiRequestDispatcherBuilder;
 import io.jmnarloch.cd.go.plugin.gradle.api.plugin.AbstractGoPlugin;
-import io.jmnarloch.cd.go.plugin.gradle.api.request.ApiRequestDispatcher;
-import io.jmnarloch.cd.go.plugin.gradle.api.request.ApiRequestDispatcherBuilder;
+
+;
 
 /**
  * The Gradle task plugin.
