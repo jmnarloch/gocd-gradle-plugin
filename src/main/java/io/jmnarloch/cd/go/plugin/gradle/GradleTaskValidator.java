@@ -13,24 +13,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.jmnarloch.cd.go.plugin.gradle.api.command;
+package io.jmnarloch.cd.go.plugin.gradle;
 
-import com.thoughtworks.go.plugin.api.request.GoPluginApiRequest;
-import com.thoughtworks.go.plugin.api.response.GoPluginApiResponse;
+import io.jmnarloch.cd.go.plugin.api.validation.AbstractTaskValidator;
+import io.jmnarloch.cd.go.plugin.api.validation.ValidationErrors;
+import org.apache.commons.lang3.StringUtils;
+
+import java.util.Map;
 
 /**
- * Basic API command. Each individual execution stage is being mapped to one of the registered commands which is
- * responsible for handling them.
+ * The Gradle task validator.
  *
  * @author Jakub Narloch
  */
-public interface ApiCommand {
+public class GradleTaskValidator extends AbstractTaskValidator {
 
     /**
-     * Executes the specific API request.
-     *
-     * @param request the API request
-     * @return the API response
+     * {@inheritDoc}
      */
-    GoPluginApiResponse execute(GoPluginApiRequest request);
+    @Override
+    public void validate(Map<String, Object> properties, ValidationErrors errors) {
+
+        if(StringUtils.isBlank(getProperty(properties, GradleTaskConfig.TASKS.getName()))) {
+            errors.addError(GradleTaskConfig.TASKS.getName(), "You need to specify Gradle tasks");
+        }
+    }
 }

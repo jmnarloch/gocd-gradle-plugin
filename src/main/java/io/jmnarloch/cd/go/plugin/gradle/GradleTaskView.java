@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.jmnarloch.cd.go.plugin.gradle.task;
+package io.jmnarloch.cd.go.plugin.gradle;
 
-import io.jmnarloch.cd.go.plugin.gradle.api.exception.PluginException;
-import io.jmnarloch.cd.go.plugin.gradle.api.view.TaskView;
+import io.jmnarloch.cd.go.plugin.api.exception.PluginException;
+import io.jmnarloch.cd.go.plugin.api.view.TaskView;
 import org.apache.commons.io.IOUtils;
 
 import java.io.IOException;

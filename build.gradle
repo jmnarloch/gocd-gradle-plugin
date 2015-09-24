@@ -57,6 +57,7 @@ idea {
 dependencies {
     provided (libraries.goPluginApi)
 
+    compile (libraries.gocdTaskPluginApi)
     compile (libraries.gson)
     compile (libraries.commonsIO)
     compile (libraries.commonsLang)

@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.jmnarloch.cd.go.plugin.gradle.task;
+package io.jmnarloch.cd.go.plugin.gradle;
 
-import io.jmnarloch.cd.go.plugin.gradle.api.config.ConfigProperty;
-import io.jmnarloch.cd.go.plugin.gradle.api.config.PropertyName;
+import io.jmnarloch.cd.go.plugin.api.config.ConfigProperty;
+import io.jmnarloch.cd.go.plugin.api.config.PropertyName;
 
 /**
  * The Gradle task configuration.

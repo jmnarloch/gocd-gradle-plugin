@@ -13,16 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.jmnarloch.cd.go.plugin.gradle.task;
+package io.jmnarloch.cd.go.plugin.gradle;
 
-import com.thoughtworks.go.plugin.api.GoPluginIdentifier;
 import com.thoughtworks.go.plugin.api.annotation.Extension;
-import io.jmnarloch.cd.go.plugin.gradle.api.config.AnnotatedEnumConfigurationProvider;
-import io.jmnarloch.cd.go.plugin.gradle.api.dispatcher.ApiRequestDispatcher;
-import io.jmnarloch.cd.go.plugin.gradle.api.dispatcher.ApiRequestDispatcherBuilder;
-import io.jmnarloch.cd.go.plugin.gradle.api.task.AbstractDispatchingTask;
-
-import java.util.Arrays;
+import io.jmnarloch.cd.go.plugin.api.config.AnnotatedEnumConfigurationProvider;
+import io.jmnarloch.cd.go.plugin.api.dispatcher.ApiRequestDispatcher;
+import io.jmnarloch.cd.go.plugin.api.dispatcher.ApiRequestDispatcherBuilder;
+import io.jmnarloch.cd.go.plugin.api.task.AbstractDispatchingTask;
 
 /**
  * The Gradle task plugin.

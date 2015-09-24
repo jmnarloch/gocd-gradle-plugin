@@ -2,6 +2,7 @@ ext {
 
     libraries = [
             goPluginApi  : 'cd.go.plugin:go-plugin-api:14.4.0',
+            gocdTaskPluginApi  : 'io.jmnarloch:gocd-task-plugin-api:1.0.0',
             commonsIO    : 'commons-io:commons-io:2.4',
             commonsLang  : 'org.apache.commons:commons-lang3:3.4',
             gson         : 'com.google.code.gson:gson:2.3.1',
