@@ -23,6 +23,7 @@ import io.jmnarloch.cd.go.plugin.gradle.api.command.ApiCommand;
 import io.jmnarloch.cd.go.plugin.gradle.api.configuration.TaskConfiguration;
 import io.jmnarloch.cd.go.plugin.gradle.api.executor.TaskExecutor;
 import io.jmnarloch.cd.go.plugin.gradle.api.validation.TaskValidator;
+import io.jmnarloch.cd.go.plugin.gradle.api.view.CachingTaskView;
 import io.jmnarloch.cd.go.plugin.gradle.api.view.TaskView;
 import io.jmnarloch.cd.go.plugin.gradle.command.ConfigurationCommand;
 import io.jmnarloch.cd.go.plugin.gradle.command.TaskCommand;
@@ -72,7 +73,24 @@ public class ApiRequestDispatcherBuilder {
      * @return the dispatcher builder
      */
     public ApiRequestDispatcherBuilder toView(TaskView taskView) {
-        return addCommand(ApiRequests.VIEW, new ViewCommand(taskView));
+        return toView(taskView, true);
+    }
+
+    /**
+     * Registers the task view.
+     *
+     * @param taskView the task view
+     * @param cached whether the view template should be cached
+     * @return the dispatcher builder
+     */
+    public ApiRequestDispatcherBuilder toView(TaskView taskView, boolean cached) {
+
+        TaskView view = taskView;
+        if(cached) {
+            view = new CachingTaskView(view);
+        }
+
+        return addCommand(ApiRequests.VIEW, new ViewCommand(view));
     }
 
     /**
@@ -148,15 +166,14 @@ public class ApiRequestDispatcherBuilder {
         public GoPluginApiResponse dispatch(GoPluginApiRequest request) throws UnhandledRequestTypeException {
 
             // TODO validate the input
-
             final ApiCommand command = commands.get(request.requestName());
-            if(command != null) {
-                logger.info("Found command for request: " + request.requestName());
-                return command.execute(request);
+            if(command == null) {
+                logger.info("No command found for request: " + request.requestName());
+                throw new UnhandledRequestTypeException(request.requestName());
             }
-            logger.info("No command found for request: " + request.requestName());
 
-            throw new UnhandledRequestTypeException(request.requestName());
+            logger.info("Executing command for request: " + request.requestName());
+            return command.execute(request);
         }
     }
 }

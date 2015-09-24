@@ -46,7 +46,7 @@ public final class ValidationErrors {
      * @return the validation errors
      */
     public boolean hasErrors() {
-        return errors.isEmpty();
+        return !errors.isEmpty();
     }
 
     /**

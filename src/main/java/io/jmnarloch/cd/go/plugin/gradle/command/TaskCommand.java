@@ -29,17 +29,30 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * The actual task execution command.
  *
+ * @author Jakub Narloch
  */
 public class TaskCommand extends BaseCommand {
 
+    /**
+     * The task executor.
+     */
     private final TaskExecutor taskExecutor;
 
+    /**
+     * Creates new instance of {@link TaskCommand}.
+     *
+     * @param taskExecutor task executor
+     */
     public TaskCommand(TaskExecutor taskExecutor) {
         // TODO validate input
         this.taskExecutor = taskExecutor;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public GoPluginApiResponse execute(GoPluginApiRequest request) {
 

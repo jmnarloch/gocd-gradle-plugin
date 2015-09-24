@@ -25,17 +25,31 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * The view command.
  *
+ * @author Jakub Narloch
  */
 public class ViewCommand extends BaseCommand {
 
+    /**
+     * The task view.
+     */
     private final TaskView taskView;
 
+    /**
+     * Creates new instance of {@link TaskView}.
+     *
+     * @param taskView the task view
+     */
     public ViewCommand(TaskView taskView) {
+
+        // TODO check input
         this.taskView = taskView;
     }
 
-    @SuppressWarnings("unchecked")
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public GoPluginApiResponse execute(GoPluginApiRequest request) {
 

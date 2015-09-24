@@ -18,21 +18,33 @@ package io.jmnarloch.cd.go.plugin.gradle.command;
 import com.thoughtworks.go.plugin.api.request.GoPluginApiRequest;
 import com.thoughtworks.go.plugin.api.response.DefaultGoPluginApiResponse;
 import com.thoughtworks.go.plugin.api.response.GoPluginApiResponse;
-import io.jmnarloch.cd.go.plugin.gradle.api.command.ApiCommand;
 import io.jmnarloch.cd.go.plugin.gradle.api.configuration.TaskConfiguration;
 
 /**
+ * The configuration command.
  *
+ * @author Jakub Narloch
  */
 public class ConfigurationCommand extends BaseCommand {
 
+    /**
+     * The configuration task used for delegation.
+     */
     private final TaskConfiguration taskConfiguration;
 
+    /**
+     * Creates new instance of {@link ConfigurationCommand}.
+     *
+     * @param taskConfiguration the configuration task
+     */
     public ConfigurationCommand(TaskConfiguration taskConfiguration) {
         // TODO validate input
         this.taskConfiguration = taskConfiguration;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public GoPluginApiResponse execute(GoPluginApiRequest request) {
 

@@ -15,6 +15,7 @@
  */
 package io.jmnarloch.cd.go.plugin.gradle.command;
 
+import com.thoughtworks.go.plugin.api.logging.Logger;
 import com.thoughtworks.go.plugin.api.request.GoPluginApiRequest;
 import com.thoughtworks.go.plugin.api.response.DefaultGoPluginApiResponse;
 import com.thoughtworks.go.plugin.api.response.GoPluginApiResponse;
@@ -30,6 +31,11 @@ import java.util.Map;
  * @author Jakub Narloch
  */
 public abstract class BaseCommand implements ApiCommand {
+
+    /**
+     * The logger instance by this class hierarchy.
+     */
+    protected final Logger logger = Logger.getLoggerFor(getClass());
 
     /**
      * The JSON parser.

@@ -25,18 +25,30 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * The validation command.
  *
+ * @author Jakub Narloch
  */
 public class ValidateCommand extends BaseCommand {
 
+    /**
+     * The validator
+     */
     private final TaskValidator taskValidator;
 
+    /**
+     * Creates new instance of {@link ValidateCommand}.
+     *
+     * @param taskValidator the validator
+     */
     public ValidateCommand(TaskValidator taskValidator) {
         // TODO validate input
         this.taskValidator = taskValidator;
     }
 
-    @SuppressWarnings("unchecked")
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public GoPluginApiResponse execute(GoPluginApiRequest request) {
 

@@ -15,13 +15,14 @@
  */
 package io.jmnarloch.cd.go.plugin.gradle.task;
 
+import com.thoughtworks.go.plugin.api.GoPluginIdentifier;
 import com.thoughtworks.go.plugin.api.annotation.Extension;
 import io.jmnarloch.cd.go.plugin.gradle.api.config.AnnotatedEnumConfigurationProvider;
 import io.jmnarloch.cd.go.plugin.gradle.api.dispatcher.ApiRequestDispatcher;
 import io.jmnarloch.cd.go.plugin.gradle.api.dispatcher.ApiRequestDispatcherBuilder;
-import io.jmnarloch.cd.go.plugin.gradle.api.plugin.AbstractGoPlugin;
+import io.jmnarloch.cd.go.plugin.gradle.api.task.AbstractDispatchingTask;
 
-;
+import java.util.Arrays;
 
 /**
  * The Gradle task plugin.
@@ -29,7 +30,7 @@ import io.jmnarloch.cd.go.plugin.gradle.api.plugin.AbstractGoPlugin;
  * @author Jakub Narloch
  */
 @Extension
-public class GradleTaskPlugin extends AbstractGoPlugin {
+public class GradleTask extends AbstractDispatchingTask {
 
     /**
      * Builds the Gradle task plugin request dispatcher.
