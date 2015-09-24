@@ -29,12 +29,14 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * The Gradle executor.
+ *
  * @author Jakub Narloch
  */
 public class GradleTaskExecutor implements TaskExecutor {
 
     /**
-     * The logger isntance used by this class.
+     * The logger instance used by this class.
      */
     private static final Logger logger = Logger.getLoggerFor(GradleTaskExecutor.class);
 
