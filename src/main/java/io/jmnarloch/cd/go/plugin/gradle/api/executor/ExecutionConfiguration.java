@@ -28,25 +28,32 @@ public class ExecutionConfiguration {
     /**
      * The configuration property map.
      */
-    private final Map<String, String> configuration;
+    private final Map<String, Object> configuration;
 
     /**
      * Creates new instance of {@link ExecutionConfiguration}.
      *
      * @param configuration the task configuration
      */
-    public ExecutionConfiguration(Map<String, String> configuration) {
+    public ExecutionConfiguration(Map<String, Object> configuration) {
 
         // TODO validate the input
         this.configuration = new HashMap<>(configuration);
     }
 
     /**
-     * Retrives the task execution configuration.
+     * Retrieves the property value.
      *
-     * @return the configuration
+     * @param name the property name
+     *
+     * @return the property value
      */
-    public Map<String, String> getConfiguration() {
-        return configuration;
+    public String getProperty(String name) {
+
+        if(!configuration.containsKey(name) || !(configuration.get(name) instanceof Map)) {
+            return null;
+        }
+
+        return (String) ((Map)configuration.get(name)).get("value");
     }
 }

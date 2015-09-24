@@ -18,12 +18,16 @@ package io.jmnarloch.cd.go.plugin.gradle.api.config;
 import java.lang.annotation.*;
 
 /**
- * Identifies the property within the enumeration that stores the configuration default value.
  *
- * @author Jakub Narloch
  */
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
-public @interface DefaultValue {
+public @interface ConfigProperty {
+
+    boolean required() default false;
+
+    boolean secure() default false;
+
+    String defaultValue() default "";
 }

@@ -15,8 +15,8 @@
  */
 package io.jmnarloch.cd.go.plugin.gradle.task;
 
+import io.jmnarloch.cd.go.plugin.gradle.api.config.ConfigProperty;
 import io.jmnarloch.cd.go.plugin.gradle.api.config.PropertyName;
-import io.jmnarloch.cd.go.plugin.gradle.api.config.DefaultValue;
 
 /**
  * The Gradle task configuration.
@@ -28,36 +28,43 @@ public enum GradleTaskConfig {
     /**
      * Whether to use the Gradle wrapper.
      */
-    USE_WRAPPER("UseWrapper", "true"),
+    @ConfigProperty(defaultValue = "true")
+    USE_WRAPPER("UseWrapper"),
 
     /**
      * The Gradle home directory.
      */
+    @ConfigProperty
     GRADLE_HOME("GradleHome"),
 
     /**
      * The tasks (goals) to execute.
      */
+    @ConfigProperty(required = true)
     TASKS("Tasks"),
 
     /**
      * Whether to use run build through Gradle deamon.
      */
+    @ConfigProperty
     DAEMON("Deamon"),
 
     /**
      * Whether to run the build in offline mode.
      */
+    @ConfigProperty
     OFFLINE("Offline"),
 
     /**
      * Whether to output the build log in debug mode.
      */
+    @ConfigProperty
     DEBUG("Debug"),
 
     /**
      * Additional options to be passed to Gradle process.
      */
+    @ConfigProperty
     ADDITIONAL_OPTIONS("AdditionalOptions");
 
     /**
@@ -67,27 +74,11 @@ public enum GradleTaskConfig {
     private String name;
 
     /**
-     * The property default value if any.
-     */
-    @DefaultValue
-    private String defaultValue;
-
-    /**
      * Creates new instance of {@link GradleTaskConfig} with property name.
      *
      * @param name the property name
      */
     GradleTaskConfig(String name) {
-        this(name, null);
-    }
-
-    /**
-     * Creates new instance of {@link GradleTaskConfig} with property name and default value.
-     *
-     * @param name the configuration property name
-     * @param defaultValue the configuration property default value, maybe null
-     */
-    GradleTaskConfig(String name, String defaultValue) {
         this.name = name;
     }
 
@@ -98,14 +89,5 @@ public enum GradleTaskConfig {
      */
     public String getName() {
         return name;
-    }
-
-    /**
-     * Retrieves the configuration property default value.
-     *
-     * @return the configuration property default value
-     */
-    public String getDefaultValue() {
-        return defaultValue;
     }
 }

@@ -16,6 +16,7 @@
 package io.jmnarloch.cd.go.plugin.gradle.api.config;
 
 import io.jmnarloch.cd.go.plugin.gradle.api.configuration.TaskConfiguration;
+import org.apache.commons.lang3.StringUtils;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
@@ -39,23 +40,53 @@ public class AnnotatedEnumConfigurationProvider<T extends Enum> implements TaskC
         return configuration;
     }
 
+    @SuppressWarnings("unchecked")
     private Map introspectEnum(Class<T> enumClass) {
         try {
-            final Map cfg = new HashMap();
+            final Map<String, Map> cfg = new HashMap<>();
 
             // inspect the enum in search for annotated fields
             final Field propertyNameField = getPropertyName(enumClass);
-            final Field propertyValueField = getPropertyValue(enumClass);
 
             // builds the property map
             for (T field : enumClass.getEnumConstants()) {
-                cfg.put(propertyNameField.get(field), getPropertyDefaultValue(propertyValueField, field));
+                final Field fieldDeclaration = enumClass.getField(field.name());
+
+                if(fieldDeclaration.isAnnotationPresent(ConfigProperty.class)) {
+                    cfg.put(getPropertyName(propertyNameField, field), inspect(fieldDeclaration));
+                }
             }
 
             return cfg;
-        } catch (IllegalAccessException e) {
+        } catch (IllegalAccessException | NoSuchFieldException e) {
             throw new IllegalArgumentException("An unexpected error occurred when retrieving the config property name", e);
         }
+    }
+
+    private Map inspect(Field field) {
+
+
+        final ConfigProperty configProperty = field.getAnnotation(ConfigProperty.class);
+        if(configProperty == null) {
+            throw new IllegalArgumentException("The inspected property needs to be annotated with @ConfigProperty");
+        }
+
+        final Map<String, Object> valueMap = new HashMap<>();
+        valueMap.put("required", configProperty.required());
+        valueMap.put("secure", configProperty.secure());
+
+        if(!StringUtils.isBlank(configProperty.defaultValue())) {
+            valueMap.put("default-value", configProperty.defaultValue());
+        }
+        return valueMap;
+    }
+
+    private String getPropertyName(Field propertyNameField, T field) throws IllegalAccessException {
+        if(!String.class.equals(propertyNameField.getType())) {
+            throw new IllegalArgumentException("The @PropertyName annotated field needs to be string");
+        }
+
+        return (String) propertyNameField.get(field);
     }
 
     private Field getPropertyName(Class<T> enumClass) {
@@ -65,25 +96,6 @@ public class AnnotatedEnumConfigurationProvider<T extends Enum> implements TaskC
         }
         throw new IllegalArgumentException(String.format("Enum '%s' does not specify the property name. " +
                 "Exactly one field needs to be annotated with @PropertyName", enumClass.getName()));
-    }
-
-    private Field getPropertyValue(Class<T> enumClass) {
-        return getAnnotatedField(enumClass, DefaultValue.class);
-    }
-
-    private Map getPropertyDefaultValue(Field propertyValueField, T field) throws IllegalAccessException {
-        if(propertyValueField == null) {
-            return null;
-        }
-
-        final Object value = propertyValueField.get(field);
-        if(value == null) {
-            return null;
-        }
-
-        final Map<String, Object> valueMap = new HashMap<>();
-        valueMap.put("default-value", value);
-        return valueMap;
     }
 
     private Field getAnnotatedField(Class<T> enumClass, Class<? extends Annotation> annotationClass) {

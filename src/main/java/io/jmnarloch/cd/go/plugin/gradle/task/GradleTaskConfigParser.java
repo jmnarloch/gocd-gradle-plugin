@@ -15,6 +15,7 @@
  */
 package io.jmnarloch.cd.go.plugin.gradle.task;
 
+import io.jmnarloch.cd.go.plugin.gradle.api.executor.ExecutionConfiguration;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.File;
@@ -46,7 +47,7 @@ class GradleTaskConfigParser {
     /**
      * The task configuration.
      */
-    private final Map<String, String> taskConfig;
+    private final ExecutionConfiguration configuration;
 
     /**
      * The Gradle tasks.
@@ -76,10 +77,10 @@ class GradleTaskConfigParser {
     /**
      * Creates new instance of {@link GradleTaskConfigParser}.
      *
-     * @param taskConfig the task configuration
+     * @param config the task configuration
      */
-    private GradleTaskConfigParser(Map<String, String> taskConfig) {
-        this.taskConfig = taskConfig;
+    private GradleTaskConfigParser(ExecutionConfiguration config) {
+        this.configuration = config;
     }
 
     /**
@@ -111,7 +112,7 @@ class GradleTaskConfigParser {
      * @return the config parser
      */
     GradleTaskConfigParser withGradleHome(String propertyKey) {
-        gradleHome = taskConfig.get(propertyKey);
+        gradleHome = configuration.getProperty(propertyKey);
         return this;
     }
 
@@ -122,7 +123,7 @@ class GradleTaskConfigParser {
      * @return the config parser
      */
     GradleTaskConfigParser withTasks(String propertyKey) {
-        final String tasks = taskConfig.get(propertyKey);
+        final String tasks = configuration.getProperty(propertyKey);
         if (!StringUtils.isBlank(tasks)) {
             this.tasks.addAll(Arrays.asList(tasks.split("\\s+")));
         }
@@ -150,7 +151,7 @@ class GradleTaskConfigParser {
      * @return the config parser
      */
     GradleTaskConfigParser withAdditionalOptions(String propertyKey) {
-        final String additional = taskConfig.get(propertyKey);
+        final String additional = configuration.getProperty(propertyKey);
         if (!StringUtils.isBlank(additional)) {
             options.addAll(Arrays.asList(additional.split("\\s+")));
         }
@@ -188,11 +189,11 @@ class GradleTaskConfigParser {
     /**
      * Creates new instance of {@link GradleTaskConfigParser}.
      *
-     * @param taskConfig the task configuration
+     * @param config the task configuration
      * @return the config parser
      */
-    public static GradleTaskConfigParser fromConfig(Map<String, String> taskConfig) {
-        return new GradleTaskConfigParser(taskConfig);
+    public static GradleTaskConfigParser fromConfig(ExecutionConfiguration config) {
+        return new GradleTaskConfigParser(config);
     }
 
     /**
@@ -213,12 +214,18 @@ class GradleTaskConfigParser {
     /**
      * Returns whether the given property has been set or not.
      * @param propertyKey the property name
-     * @return true if the property has been value - a value has been specified, or not
+     * @return true if the property value has been specified, false otherwise
      */
     private boolean isPropertySet(String propertyKey) {
-        return isSet(taskConfig.get(propertyKey));
+        return isSet(configuration.getProperty(propertyKey));
     }
 
+    /**
+     * Returns whether the given string property is present.
+     *
+     * @param value the property value
+     * @return true if the property value has been specified, false otherwise
+     */
     private static boolean isSet(String value) {
         return !StringUtils.isBlank(value) && Boolean.valueOf(value);
     }

@@ -16,14 +16,21 @@
 package io.jmnarloch.cd.go.plugin.gradle.api.executor;
 
 import com.thoughtworks.go.plugin.api.task.JobConsoleLogger;
-import io.jmnarloch.cd.go.plugin.gradle.api.executor.ExecutionConfiguration;
-import io.jmnarloch.cd.go.plugin.gradle.api.executor.ExecutionContext;
-import io.jmnarloch.cd.go.plugin.gradle.api.executor.ExecutionResult;
 
 /**
+ * The task executor abstraction.
  *
+ * @author Jakub Narloch
  */
 public interface TaskExecutor {
 
-    ExecutionResult execute(ExecutionContext context, ExecutionConfiguration configuration, JobConsoleLogger console);
+    /**
+     * Executes the given task.
+     *
+     * @param context the execution context
+     * @param config the execution configuration
+     * @param console the output console
+     * @return the task execution result
+     */
+    ExecutionResult execute(ExecutionContext context, ExecutionConfiguration config, JobConsoleLogger console);
 }

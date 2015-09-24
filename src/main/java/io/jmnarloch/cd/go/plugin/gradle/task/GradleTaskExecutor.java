@@ -52,10 +52,10 @@ public class GradleTaskExecutor implements TaskExecutor {
      * {@inheritDoc}
      */
     @Override
-    public ExecutionResult execute(ExecutionContext context, ExecutionConfiguration configuration, JobConsoleLogger console) {
+    public ExecutionResult execute(ExecutionContext context, ExecutionConfiguration config, JobConsoleLogger console) {
 
         try {
-            final ProcessBuilder gradle = buildGradleProcess(configuration, context);
+            final ProcessBuilder gradle = buildGradleProcess(config, context);
 
             int result = execute(gradle, console);
 
@@ -140,7 +140,7 @@ public class GradleTaskExecutor implements TaskExecutor {
      */
     private static List<String> parse(ExecutionConfiguration config, Map<String, String> env) {
 
-        return GradleTaskConfigParser.fromConfig(config.getConfiguration())
+        return GradleTaskConfigParser.fromConfig(config)
                 .withEnvironment(env)
                 .useWrapper(GradleTaskConfig.USE_WRAPPER.getName())
                 .withGradleHome(GradleTaskConfig.GRADLE_HOME.getName())
