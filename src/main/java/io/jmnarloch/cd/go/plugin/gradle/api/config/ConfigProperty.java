@@ -18,16 +18,28 @@ package io.jmnarloch.cd.go.plugin.gradle.api.config;
 import java.lang.annotation.*;
 
 /**
+ * Annotation used to mark enumeration as configuration property. It allows to specify extra meta data as whether
+ * the property is required, secured and it's default value.
  *
+ * @author Jakub Narloch
  */
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
 public @interface ConfigProperty {
 
+    /**
+     * Marks the property as required, false by default.
+     */
     boolean required() default false;
 
+    /**
+     * Marks the property as secure, false by default.
+     */
     boolean secure() default false;
 
+    /**
+     * Indicates the property default value.
+     */
     String defaultValue() default "";
 }

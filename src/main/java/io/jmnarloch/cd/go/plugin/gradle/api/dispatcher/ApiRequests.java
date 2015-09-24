@@ -22,11 +22,23 @@ package io.jmnarloch.cd.go.plugin.gradle.api.dispatcher;
  */
 public interface ApiRequests {
 
+    /**
+     * The configuration request.
+     */
     String CONFIGURATION = "configuration";
 
+    /**
+     * The validation request.
+     */
     String VALIDATE = "validate";
 
+    /**
+     * The view request.
+     */
     String VIEW = "view";
 
+    /**
+     * The execute request.
+     */
     String EXECUTE = "execute";
 }

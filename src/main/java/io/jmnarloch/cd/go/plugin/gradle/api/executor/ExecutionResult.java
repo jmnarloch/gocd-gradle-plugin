@@ -60,14 +60,29 @@ public class ExecutionResult {
         this.exception = exc;
     }
 
+    /**
+     * Retrieves whether the request was successful or not.
+     *
+     * @return whether the request was successful
+     */
     public boolean isSuccess() {
         return success;
     }
 
+    /**
+     * Retrieves the message.
+     *
+     * @return the message
+     */
     public String getMessage() {
         return message;
     }
 
+    /**
+     * Retrieves an exception, that could occur during unsuccessful execution.
+     *
+     * @return the exception
+     */
     public Exception getException() {
         return exception;
     }
