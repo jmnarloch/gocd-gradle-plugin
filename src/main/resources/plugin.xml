@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<go-plugin id="gradle.task.plugin" version="1.0.0">
+<go-plugin id="gradle.task.plugin" version="${version}">
     <about>
         <name>Gradle Task Plugin</name>
-        <version>1.0.0</version>
+        <version>${version}</version>
         <target-go-version>14.4.0</target-go-version>
         <description>
             Go Task plugin for Gradle builds
