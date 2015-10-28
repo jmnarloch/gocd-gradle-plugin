@@ -3,8 +3,6 @@ jdk:
 - oraclejdk7
 os:
   - linux
-  - osx
-  -
 install:
 - ./gradlew assemble -PossrhUsername="${ossrhUsername}" -PossrhPassword="${ossrhPassword}"
 script:
