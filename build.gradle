@@ -7,6 +7,7 @@ buildscript {
 plugins {
     id "com.github.hierynomus.license" version "0.11.0"
     id 'net.researchgate.release' version '2.1.2'
+    id 'com.github.kt3k.coveralls' version '2.4.0'
 }
 
 apply plugin: 'java'
@@ -16,6 +17,8 @@ apply plugin: 'idea'
 apply from: 'libraries.gradle'
 apply from: 'gradle/license.gradle'
 apply from: 'gradle/release.gradle'
+
+apply plugin: 'com.github.kt3k.coveralls'
 
 apply plugin: 'findbugs'
 apply plugin: 'pmd'
@@ -94,4 +97,11 @@ javadoc {
 
 findbugs {
     ignoreFailures = true
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled = true
+        html.enabled = true
+    }
 }

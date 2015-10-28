@@ -201,7 +201,7 @@ class GradleTaskConfigParser {
 
     /**
      * Sets the Gradlew command to be executed on system.
-     * 
+     *
      * @param command the command lists
      */
     private void setGradlewCommand(List<String> command) {
