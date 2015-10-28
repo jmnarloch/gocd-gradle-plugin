@@ -19,6 +19,7 @@ import io.jmnarloch.cd.go.plugin.api.executor.ExecutionConfiguration;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.File;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -169,23 +170,46 @@ class GradleTaskConfigParser {
         final List<String> command = new ArrayList<String>();
 
         if (useWrapper) {
-            if (isWindows()) {
-                command.add(gradlew().windows());
-            } else {
-                command.add(gradlew().unix());
-            }
+            setGradlewCommand(command);
         } else {
-            final String gradleHome = getGradleHome();
-
-            if (!StringUtils.isBlank(gradleHome)) {
-                command.add(new File(new File(gradleHome, GRADLE_BIN), gradle()).getAbsolutePath());
-            } else {
-                command.add(gradle());
-            }
+            setGradleCommand(command);
         }
         command.addAll(options);
         command.addAll(tasks);
         return command;
+    }
+
+    /**
+     * Specifies the Gradle command to be executed on system.
+     *
+     * @param command the list of commands
+     */
+    private void setGradleCommand(List<String> command) {
+        final String gradleHome = getGradleHome();
+
+        if(isWindows()) {
+            command.add("CMD");
+            command.add("/C");
+        }
+
+        if (!StringUtils.isBlank(gradleHome)) {
+            command.add(Paths.get(gradleHome, GRADLE_BIN, gradle()).toAbsolutePath().toString());
+        } else {
+            command.add(gradle());
+        }
+    }
+
+    /**
+     * Sets the Gradlew command to be executed on system.
+     * 
+     * @param command the command lists
+     */
+    private void setGradlewCommand(List<String> command) {
+        if (isWindows()) {
+            command.add(gradlew().windows());
+        } else {
+            command.add(gradlew().unix());
+        }
     }
 
     /**
