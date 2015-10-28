@@ -6,7 +6,7 @@
 
 ## Installation
 
-Download the plugin and copy it into `/$GO_SERVER_HOME/plugins/external` and restart the Go server.
+Download the plugin and copy it into `$GO_SERVER_HOME/plugins/external` and restart the Go server.
 
 The plugin should appear on Plugins page.
 

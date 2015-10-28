@@ -76,14 +76,14 @@ dependencies {
     testCompile (libraries.mockito)
 }
 
-sourceSets.main.compileClasspath += [configurations.provided]
+sourceSets.main.compileClasspath += configurations.provided
 
 processResources {
     expand(project.properties)
 }
 
 javadoc {
-    classpath += [configurations.provided]
+    classpath += configurations.provided
 }
 
 findbugs {

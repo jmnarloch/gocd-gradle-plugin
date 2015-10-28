@@ -19,7 +19,14 @@ import io.jmnarloch.cd.go.plugin.api.executor.ExecutionConfiguration;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.File;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import static io.jmnarloch.cd.go.plugin.gradle.Gradle.gradle;
+import static io.jmnarloch.cd.go.plugin.gradle.Gradle.gradlew;
 
 /**
  * The Gradle configuration parser, that converts the flags into form of command line options needed to execute the
@@ -33,11 +40,6 @@ class GradleTaskConfigParser {
      * The Gradle home. Needed when the wrapper is not used and the Gradle is not specified on system Path.
      */
     private static final String GRADLE_HOME = "GRADLE_HOME";
-
-    /**
-     * The Gradle command.
-     */
-    private static final String GRADLE = "gradle";
 
     /**
      * Path to the Gradle executables within the GRADLE_HOME.
@@ -134,7 +136,7 @@ class GradleTaskConfigParser {
      * Registers command line option.
      *
      * @param propertyKey the name of the property that specifies this setting
-     * @param option the corresponding Gradle command line option
+     * @param option      the corresponding Gradle command line option
      * @return the config parser
      */
     GradleTaskConfigParser withOption(String propertyKey, String option) {
@@ -203,9 +205,9 @@ class GradleTaskConfigParser {
      * @return the Gradle home
      */
     private String getGradleHome() {
-        if(!StringUtils.isBlank(gradleHome)) {
+        if (!StringUtils.isBlank(gradleHome)) {
             return gradleHome;
-        } else if(!StringUtils.isBlank(environment.get(GRADLE_HOME))) {
+        } else if (!StringUtils.isBlank(environment.get(GRADLE_HOME))) {
             return environment.get(GRADLE_HOME);
         }
         return null;
@@ -213,6 +215,7 @@ class GradleTaskConfigParser {
 
     /**
      * Returns whether the given property has been set or not.
+     *
      * @param propertyKey the property name
      * @return true if the property value has been specified, false otherwise
      */
@@ -238,61 +241,5 @@ class GradleTaskConfigParser {
     private boolean isWindows() {
         final String os = environment.get("os.name");
         return !StringUtils.isBlank(os) && os.toLowerCase().contains("win");
-    }
-
-    /**
-     * The Gradle command name.
-     * @return the Gradle command name
-     */
-    private String gradle() {
-        return GRADLE;
-    }
-
-    /**
-     * The Gradle wrapper command name.
-     *
-     * @return the Gradle wrapper command name
-     */
-    private GradlewCommand gradlew() {
-        return GradlewCommand.INSTANCE;
-    }
-
-    /**
-     * The gradle wrapper command.
-     */
-    private static class GradlewCommand {
-
-        /**
-         * The Gradle wrapper Windows family bat script command.
-         */
-        private static final String GRADLEW_WINDOWS = "./gradlew.bat";
-
-        /**
-         * The Gradle wrapper Unix script command.
-         */
-        private static final String GRADLEW_UNIX = "./gradlew";
-
-        /**
-         * The single instance.
-         */
-        public static final GradlewCommand INSTANCE = new GradlewCommand();
-
-        /**
-         * Returns the Gradlew command to be executed on windows os family.
-         *
-         * @return the Gradlew command
-         */
-        String windows() {
-            return GRADLEW_WINDOWS;
-        }
-
-        /**
-         * Returns the Gradlew command to be executed on unix os family.
-         *
-         * @return the Gradlew command
-         */
-        String unix() {
-            return GRADLEW_UNIX;
-        }
     }
 }

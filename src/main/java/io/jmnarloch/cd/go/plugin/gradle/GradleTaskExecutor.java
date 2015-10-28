@@ -29,7 +29,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * The Gradle executor.
+ * The Gradle task executor.
  *
  * @author Jakub Narloch
  */
