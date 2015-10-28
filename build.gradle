@@ -80,8 +80,6 @@ sourceSets.main.compileClasspath += configurations.provided
 sourceSets.test.compileClasspath += configurations.provided
 sourceSets.test.runtimeClasspath += configurations.provided
 
-println "Gradle HOME: " + gradle.gradleHomeDir
-
 test {
     systemProperties 'GRADLE_HOME': gradle.gradleHomeDir
 }
