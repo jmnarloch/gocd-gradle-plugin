@@ -263,7 +263,7 @@ class GradleTaskConfigParser {
      * @return true if the current task is executed on Windows
      */
     private boolean isWindows() {
-        final String os = environment.getOrDefault(OS_NAME, System.getProperty(OS_NAME));
+        final String os = environment.containsKey(OS_NAME) ? environment.get(OS_NAME) : System.getProperty(OS_NAME));
         return !StringUtils.isBlank(os) && os.toLowerCase().contains("win");
     }
 }
