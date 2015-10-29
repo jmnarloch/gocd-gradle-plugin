@@ -18,13 +18,8 @@ package io.jmnarloch.cd.go.plugin.gradle;
 import io.jmnarloch.cd.go.plugin.api.executor.ExecutionConfiguration;
 import org.apache.commons.lang3.StringUtils;
 
-import java.io.File;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static io.jmnarloch.cd.go.plugin.gradle.Gradle.gradle;
 import static io.jmnarloch.cd.go.plugin.gradle.Gradle.gradlew;
@@ -46,7 +41,11 @@ class GradleTaskConfigParser {
      * Path to the Gradle executables within the GRADLE_HOME.
      */
     private static final String GRADLE_BIN = "bin";
-    public static final String OS_NAME = "os.name";
+
+    /**
+     * The operating system propert name.
+     */
+    private static final String OS_NAME = "os.name";
 
     /**
      * The task configuration.
