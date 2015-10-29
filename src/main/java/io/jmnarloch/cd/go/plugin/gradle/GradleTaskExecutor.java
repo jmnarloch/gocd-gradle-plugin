@@ -87,7 +87,7 @@ public class GradleTaskExecutor implements TaskExecutor {
     private static ProcessBuilder buildGradleProcess(ExecutionConfiguration config, ExecutionContext environment) {
         final Map<String, String> env = environment.getEnvironmentVariables();
 
-        final List<String> command = parse(config, env);
+        final List<String> command = parse(config, env, environment.getWorkingDirectory());
 
         logger.debug("Executing command: " + command);
 
@@ -138,12 +138,14 @@ public class GradleTaskExecutor implements TaskExecutor {
      *
      * @param config the task configuration
      * @param env the task environment
+     * @param workingDirectory the command working directory
      * @return the list of Gradle commandline arguments
      */
-    private static List<String> parse(ExecutionConfiguration config, Map<String, String> env) {
+    private static List<String> parse(ExecutionConfiguration config, Map<String, String> env, String workingDirectory) {
 
         return GradleTaskConfigParser.fromConfig(config)
                 .withEnvironment(env)
+                .withWorkingDirectory(workingDirectory)
                 .useWrapper(GradleTaskConfig.USE_WRAPPER.getName())
                 .withGradleHome(GradleTaskConfig.GRADLE_HOME.getName())
                 .withTasks(GradleTaskConfig.TASKS.getName())

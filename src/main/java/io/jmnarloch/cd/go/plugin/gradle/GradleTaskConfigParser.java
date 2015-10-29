@@ -19,7 +19,11 @@ import io.jmnarloch.cd.go.plugin.api.executor.ExecutionConfiguration;
 import org.apache.commons.lang3.StringUtils;
 
 import java.nio.file.Paths;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import static io.jmnarloch.cd.go.plugin.gradle.Gradle.gradle;
 import static io.jmnarloch.cd.go.plugin.gradle.Gradle.gradlew;
@@ -63,6 +67,11 @@ class GradleTaskConfigParser {
     private final List<String> options = new ArrayList<String>();
 
     /**
+     * The working directory.
+     */
+    private String workingDirectory;
+
+    /**
      * The execution environment.
      */
     private Map<String, String> environment = new HashMap<String, String>();
@@ -94,6 +103,17 @@ class GradleTaskConfigParser {
      */
     GradleTaskConfigParser withEnvironment(Map<String, String> environment) {
         this.environment = environment;
+        return this;
+    }
+
+    /**
+     * Specifies the working directory.
+     *
+     * @param workingDirectory the working directory
+     * @return the config parser
+     */
+    GradleTaskConfigParser withWorkingDirectory(String workingDirectory) {
+        this.workingDirectory = workingDirectory;
         return this;
     }
 
@@ -186,7 +206,7 @@ class GradleTaskConfigParser {
      */
     private void setGradleCommand(List<String> command) {
         final String gradleHome = getGradleHome();
-        
+
         if (!StringUtils.isBlank(gradleHome)) {
             command.add(Paths.get(gradleHome, GRADLE_BIN, gradle()).toAbsolutePath().toString());
         } else {
@@ -200,11 +220,13 @@ class GradleTaskConfigParser {
      * @param command the command lists
      */
     private void setGradlewCommand(List<String> command) {
+        String gradleCommand;
         if (isWindows()) {
-            command.add(gradlew().windows());
+            gradleCommand = gradlew().windows();
         } else {
-            command.add(gradlew().unix());
+            gradleCommand = gradlew().unix();
         }
+        command.add(Paths.get(workingDirectory, gradleCommand).toAbsolutePath().toString());
     }
 
     /**
