@@ -186,12 +186,7 @@ class GradleTaskConfigParser {
      */
     private void setGradleCommand(List<String> command) {
         final String gradleHome = getGradleHome();
-
-        if(isWindows()) {
-            command.add("CMD");
-            command.add("/C");
-        }
-
+        
         if (!StringUtils.isBlank(gradleHome)) {
             command.add(Paths.get(gradleHome, GRADLE_BIN, gradle()).toAbsolutePath().toString());
         } else {
