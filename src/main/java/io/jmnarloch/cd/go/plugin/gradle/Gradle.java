@@ -77,7 +77,7 @@ final class Gradle {
         /**
          * The Gradle Windows family executable name.
          */
-        private static final String GRADLE_WINDOWS = "gradle.exe";
+        private static final String GRADLE_WINDOWS = "gradle.bat";
 
         /**
          * The Gradle Unix family executable name.
