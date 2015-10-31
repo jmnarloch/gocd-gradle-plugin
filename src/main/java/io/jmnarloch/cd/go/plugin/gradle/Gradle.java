@@ -32,27 +32,12 @@ final class Gradle {
     }
 
     /**
-     * The Gradle command.
-     */
-    private static final String GRADLE = "gradle";
-
-    /**
-     * The Gradle wrapper Windows family bat script command.
-     */
-    private static final String GRADLEW_WINDOWS = "gradlew.bat";
-
-    /**
-     * The Gradle wrapper Unix script command.
-     */
-    private static final String GRADLEW_UNIX = "gradlew";
-
-    /**
      * The Gradle command name.
      *
      * @return the Gradle command name
      */
-    public static String gradle() {
-        return GRADLE;
+    public static GradleCommand gradle() {
+        return GradleCommand.INSTANCE;
     }
 
     /**
@@ -65,12 +50,83 @@ final class Gradle {
     }
 
     /**
-     * The gradle wrapper command.
+     * A simple command abstraction.
      */
-    public static final class GradlewCommand {
+    public interface Command {
 
         /**
-         * The single instance.
+         * Returns the windows command.
+         *
+         * @return the windows command
+         */
+        String windows();
+
+        /**
+         * Returns the unix command.
+         *
+         * @return the unix command
+         */
+        String unix();
+    }
+
+    /**
+     * The Gradle command.
+     */
+    public static final class GradleCommand implements Command {
+
+        /**
+         * The Gradle Windows family executable name.
+         */
+        private static final String GRADLE_WINDOWS = "gradle.exe";
+
+        /**
+         * The Gradle Unix family executable name.
+         */
+        private static final String GRADLE_UNIX = "gradle";
+
+        /**
+         * The command instance.
+         */
+        private static final GradleCommand INSTANCE = new GradleCommand();
+
+        /**
+         * Returns the Gradle command to be executed on windows os family.
+         *
+         * @return the Gradle command
+         */
+        @Override
+        public String windows() {
+            return GRADLE_WINDOWS;
+        }
+
+        /**
+         * Returns the Gradle command to be executed on unix os family.
+         *
+         * @return the Gradle command
+         */
+        @Override
+        public String unix() {
+            return GRADLE_UNIX;
+        }
+    }
+
+    /**
+     * The gradle wrapper command.
+     */
+    public static final class GradlewCommand implements Command {
+
+        /**
+         * The Gradle wrapper Windows family bat script command.
+         */
+        private static final String GRADLEW_WINDOWS = "gradlew.bat";
+
+        /**
+         * The Gradle wrapper Unix script command.
+         */
+        private static final String GRADLEW_UNIX = "gradlew";
+
+        /**
+         * The command instance.
          */
         private static final GradlewCommand INSTANCE = new GradlewCommand();
 
