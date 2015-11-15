@@ -77,12 +77,12 @@ final class Gradle {
         /**
          * The Gradle Windows family executable name.
          */
-        private static final String GRADLE_WINDOWS = "gradle.bat";
+        private static final String GRADLE_WINDOWS = "./gradle.bat";
 
         /**
          * The Gradle Unix family executable name.
          */
-        private static final String GRADLE_UNIX = "gradle";
+        private static final String GRADLE_UNIX = "./gradle";
 
         /**
          * The command instance.
@@ -118,12 +118,12 @@ final class Gradle {
         /**
          * The Gradle wrapper Windows family bat script command.
          */
-        private static final String GRADLEW_WINDOWS = "gradlew.bat";
+        private static final String GRADLEW_WINDOWS = "./gradlew.bat";
 
         /**
          * The Gradle wrapper Unix script command.
          */
-        private static final String GRADLEW_UNIX = "gradlew";
+        private static final String GRADLEW_UNIX = "./gradlew";
 
         /**
          * The command instance.

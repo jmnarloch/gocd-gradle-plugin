@@ -216,7 +216,7 @@ class GradleTaskConfigParser {
 
         String gradleCommand = gradle;
         if (!StringUtils.isBlank(gradleHome)) {
-            gradleCommand = Paths.get(gradleHome, GRADLE_BIN, gradle).toAbsolutePath().toString();
+            gradleCommand = Paths.get(gradleHome, GRADLE_BIN, gradle).toAbsolutePath().normalize().toString();
         }
         command.add(gradleCommand);
     }
@@ -233,7 +233,7 @@ class GradleTaskConfigParser {
         } else {
             gradleCommand = gradlew().unix();
         }
-        command.add(Paths.get(workingDirectory, gradleCommand).toAbsolutePath().toString());
+        command.add(Paths.get(workingDirectory, gradleCommand).toAbsolutePath().normalize().toString());
     }
 
     /**
