@@ -36,7 +36,7 @@ final class Gradle {
      *
      * @return the Gradle command name
      */
-    public static GradleCommand gradle() {
+    public static Command gradle() {
         return GradleCommand.INSTANCE;
     }
 
@@ -45,7 +45,7 @@ final class Gradle {
      *
      * @return the Gradle wrapper command name
      */
-    public static GradlewCommand gradlew() {
+    public static Command gradlew() {
         return GradlewCommand.INSTANCE;
     }
 
@@ -72,7 +72,7 @@ final class Gradle {
     /**
      * The Gradle command.
      */
-    public static final class GradleCommand implements Command {
+    private static final class GradleCommand implements Command {
 
         /**
          * The Gradle Windows family executable name.
@@ -113,7 +113,7 @@ final class Gradle {
     /**
      * The gradle wrapper command.
      */
-    public static final class GradlewCommand implements Command {
+    private static final class GradlewCommand implements Command {
 
         /**
          * The Gradle wrapper Windows family bat script command.

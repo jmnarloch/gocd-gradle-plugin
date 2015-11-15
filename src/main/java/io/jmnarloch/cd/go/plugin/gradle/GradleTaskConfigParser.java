@@ -18,6 +18,8 @@ package io.jmnarloch.cd.go.plugin.gradle;
 import io.jmnarloch.cd.go.plugin.api.executor.ExecutionConfiguration;
 import org.apache.commons.lang3.StringUtils;
 
+import java.io.File;
+import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -47,7 +49,12 @@ class GradleTaskConfigParser {
     private static final String GRADLE_BIN = "bin";
 
     /**
-     * The operating system propert name.
+     * The PATH environment variable.
+     */
+    private static final String PATH = "PATH";
+
+    /**
+     * The operating system property name.
      */
     private static final String OS_NAME = "os.name";
 
@@ -217,6 +224,8 @@ class GradleTaskConfigParser {
         String gradleCommand = gradle;
         if (!StringUtils.isBlank(gradleHome)) {
             gradleCommand = Paths.get(gradleHome, GRADLE_BIN, gradle).toAbsolutePath().normalize().toString();
+        } else {
+            gradleCommand = getExecutablePath(gradleCommand);
         }
         command.add(gradleCommand);
     }
@@ -262,6 +271,26 @@ class GradleTaskConfigParser {
     }
 
     /**
+     * Finds first matching path to executable file by iterating over all system path entires.
+     *
+     * @param command the command
+     * @return the absolute path to the executable file
+     */
+    private String getExecutablePath(String command) {
+        final String systemPath = getEnvironmentVariable(PATH);
+        if (StringUtils.isBlank(systemPath)) {
+            return command;
+        }
+        final String[] paths = systemPath.split(File.pathSeparator);
+        for (String path : paths) {
+            if (Files.exists(Paths.get(path, command))) {
+                return Paths.get(path, command).toAbsolutePath().normalize().toString();
+            }
+        }
+        return command;
+    }
+
+    /**
      * Returns whether the given property has been set or not.
      *
      * @param propertyKey the property name
@@ -289,5 +318,16 @@ class GradleTaskConfigParser {
     private boolean isWindows() {
         final String os = environment.containsKey(OS_NAME) ? environment.get(OS_NAME) : System.getProperty(OS_NAME);
         return !StringUtils.isBlank(os) && os.toLowerCase().contains("win");
+    }
+
+    /**
+     * Retrieves the environment variable.
+     *
+     * @param property the property name
+     * @return the environment variable
+     */
+    private String getEnvironmentVariable(String property) {
+
+        return environment.containsKey(property) ? environment.get(property) : System.getenv(property);
     }
 }
