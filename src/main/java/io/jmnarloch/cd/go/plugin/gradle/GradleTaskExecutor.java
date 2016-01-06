@@ -147,6 +147,7 @@ public class GradleTaskExecutor implements TaskExecutor {
                 .withEnvironment(env)
                 .withWorkingDirectory(workingDirectory)
                 .useWrapper(GradleTaskConfig.USE_WRAPPER.getName())
+                .makeWrapperExecutable(GradleTaskConfig.MAKE_WRAPPER_EXECUTABLE.getName())
                 .withGradleHome(GradleTaskConfig.GRADLE_HOME.getName())
                 .withTasks(GradleTaskConfig.TASKS.getName())
                 .withOption(GradleTaskConfig.DEBUG.getName(), "--debug")

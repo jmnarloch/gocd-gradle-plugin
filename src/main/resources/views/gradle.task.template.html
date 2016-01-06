@@ -10,6 +10,13 @@
     </div>
 </div>
 <div class="form_item_block">
+    <div class="checkbox_row">
+        <label for="chbMakeWrapperExecutable">Add executable permission to wrapper script:</label>
+        <input id="chbMakeWrapperExecutable" type="checkbox" ng-model="chbMakeWrapperExecutable" ng-init="chbMakeWrapperExecutable = MakeWrapperExecutable" ng-change="MakeWrapperExecutable = chbMakeWrapperExecutable" ng-true-value="true" ng-false-value="false" ng-disabled="UseWrapper == 'false'">
+        <input id="makeWrapperExecutable" type="hidden" ng-model="MakeWrapperExecutable" value="{{MakeWrapperExecutable}}">
+    </div>
+</div>
+<div class="form_item_block">
     <label for="gradleHome">Gradle home (optional):</label>
     <input id="gradleHome" type="text" ng-model="GradleHome" ng-disabled="UseWrapper == 'true'">
     <div class="inline_instruction">If wrapper is not used - specify the path to Gradle installation directory</div>

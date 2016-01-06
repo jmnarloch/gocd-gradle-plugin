@@ -32,6 +32,12 @@ public enum GradleTaskConfig {
     USE_WRAPPER("UseWrapper"),
 
     /**
+     * Whether to add executable permission to the Gradle wrapper script.
+     */
+    @ConfigProperty(defaultValue = "true")
+    MAKE_WRAPPER_EXECUTABLE("MakeWrapperExecutable"),
+
+    /**
      * The Gradle home directory.
      */
     @ConfigProperty

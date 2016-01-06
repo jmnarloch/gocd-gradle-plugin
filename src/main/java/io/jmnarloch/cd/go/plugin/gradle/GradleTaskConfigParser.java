@@ -15,17 +15,23 @@
  */
 package io.jmnarloch.cd.go.plugin.gradle;
 
+import com.thoughtworks.go.plugin.api.logging.Logger;
 import io.jmnarloch.cd.go.plugin.api.executor.ExecutionConfiguration;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.attribute.PosixFileAttributeView;
+import java.nio.file.attribute.PosixFilePermission;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import static io.jmnarloch.cd.go.plugin.gradle.Gradle.gradle;
 import static io.jmnarloch.cd.go.plugin.gradle.Gradle.gradlew;
@@ -37,6 +43,11 @@ import static io.jmnarloch.cd.go.plugin.gradle.Gradle.gradlew;
  * @author Jakub Narloch
  */
 class GradleTaskConfigParser {
+
+    /**
+     * The logger instance used by this class.
+     */
+    private static final Logger logger = Logger.getLoggerFor(GradleTaskConfigParser.class);
 
     /**
      * The Gradle home. Needed when the wrapper is not used and the Gradle is not specified on system Path.
@@ -86,7 +97,12 @@ class GradleTaskConfigParser {
     /**
      * Whether to use Gradle wrapper.
      */
-    private boolean useWrapper = false;
+    private boolean useWrapper;
+
+    /**
+     * Whether to make Gradle wrapper executable.
+     */
+    private boolean makeWrapperExecutable;
 
     /**
      * Gradle HOME dir.
@@ -120,7 +136,7 @@ class GradleTaskConfigParser {
      * @return the config parser
      */
     GradleTaskConfigParser withWorkingDirectory(String workingDirectory) {
-        this.workingDirectory = workingDirectory;
+        this.workingDirectory = workingDirectory.replace("\\\\", File.separator);
         return this;
     }
 
@@ -132,6 +148,17 @@ class GradleTaskConfigParser {
      */
     GradleTaskConfigParser useWrapper(String propertyKey) {
         useWrapper = isPropertySet(propertyKey);
+        return this;
+    }
+
+    /**
+     * Specifies whether to make the Gradle wrapper script executable.
+     *
+     * @param propertyKey the name of the property that specifies this setting
+     * @return the config parser
+     */
+    GradleTaskConfigParser makeWrapperExecutable(String propertyKey) {
+        makeWrapperExecutable = isPropertySet(propertyKey);
         return this;
     }
 
@@ -207,6 +234,16 @@ class GradleTaskConfigParser {
     }
 
     /**
+     * Creates new instance of {@link GradleTaskConfigParser}.
+     *
+     * @param config the task configuration
+     * @return the config parser
+     */
+    public static GradleTaskConfigParser fromConfig(ExecutionConfiguration config) {
+        return new GradleTaskConfigParser(config);
+    }
+
+    /**
      * Specifies the Gradle command to be executed on system.
      *
      * @param command the list of commands
@@ -230,6 +267,7 @@ class GradleTaskConfigParser {
         command.add(gradleCommand);
     }
 
+
     /**
      * Sets the Gradlew command to be executed on system.
      *
@@ -242,17 +280,33 @@ class GradleTaskConfigParser {
         } else {
             gradleCommand = gradlew().unix();
         }
-        command.add(Paths.get(workingDirectory, gradleCommand).toAbsolutePath().normalize().toString());
+
+        final String gradlewPath = Paths.get(workingDirectory, gradleCommand).toAbsolutePath().normalize().toString();
+        command.add(gradlewPath);
+        if (!isWindows() && makeWrapperExecutable) {
+            addExecutablePermission(gradlewPath);
+        }
     }
 
     /**
-     * Creates new instance of {@link GradleTaskConfigParser}.
+     * Adds the executable file permission.
      *
-     * @param config the task configuration
-     * @return the config parser
+     * @param file the path to the file
      */
-    public static GradleTaskConfigParser fromConfig(ExecutionConfiguration config) {
-        return new GradleTaskConfigParser(config);
+    private void addExecutablePermission(String file) {
+        final Path path = Paths.get(file);
+        if (Files.exists(path)) {
+            try {
+                PosixFileAttributeView attr = Files.getFileAttributeView(path, PosixFileAttributeView.class);
+                Set<PosixFilePermission> permissions = attr.readAttributes().permissions();
+                if(permissions.add(PosixFilePermission.OWNER_EXECUTE)) {
+                    logger.info(String.format("Added +x permission to file: %s", file));
+                }
+                attr.setPermissions(permissions);
+            } catch (IOException e) {
+                logger.error(String.format("Failed to add the executable permissions to file: %s", file));
+            }
+        }
     }
 
     /**
@@ -271,7 +325,7 @@ class GradleTaskConfigParser {
     }
 
     /**
-     * Finds first matching path to executable file by iterating over all system path entires.
+     * Finds first matching path to executable file by iterating over all system path entries.
      *
      * @param command the command
      * @return the absolute path to the executable file
