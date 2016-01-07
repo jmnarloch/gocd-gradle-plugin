@@ -136,7 +136,7 @@ class GradleTaskConfigParser {
      * @return the config parser
      */
     GradleTaskConfigParser withWorkingDirectory(String workingDirectory) {
-        this.workingDirectory = workingDirectory.replace("\\\\", File.separator);
+        this.workingDirectory = workingDirectory.replace("\\", File.separator);
         return this;
     }
 
