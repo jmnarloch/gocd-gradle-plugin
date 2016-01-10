@@ -113,11 +113,34 @@ public class GradleTaskExecutorTest {
         assertTrue(result.isSuccess());
     }
 
+    @Test
+    public void shouldBuildGradleProjectUsingWrapperInWindowsRelativeDirectory() throws Exception {
+
+        // given
+        final ExecutionContext executionContext = createExecutionContext("src\\test\\resources\\gradle");
+        final Map<String, String> settings = new HashMap<>();
+        settings.put(USE_WRAPPER.getName(), TRUE.toString());
+        final ExecutionConfiguration executionConfiguration = createExecutionConfig(settings);
+        final JobConsoleLogger jobConsoleLogger = createConsoleLogger();
+
+        // when
+        final ExecutionResult result = instance.execute(executionContext, executionConfiguration, jobConsoleLogger);
+
+        // then
+        assertNotNull(result);
+        assertTrue(result.isSuccess());
+    }
+
     @SuppressWarnings("unchecked")
     private ExecutionContext createExecutionContext() {
+        return createExecutionContext(Paths.get("src/test/resources/gradle").toAbsolutePath().toString());
+    }
+
+    @SuppressWarnings("unchecked")
+    private ExecutionContext createExecutionContext(String workingDirectory) {
         final Map<String, Object> config = new HashMap<>();
         final Map<String, String> env = new LinkedHashMap<>((Map)System.getProperties());
-        config.put("workingDirectory", Paths.get("src/test/resources/gradle").toAbsolutePath().toString());
+        config.put("workingDirectory", workingDirectory);
         config.put("environmentVariables", env);
         return new ExecutionContext(config);
     }

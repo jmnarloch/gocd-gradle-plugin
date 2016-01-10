@@ -25,6 +25,7 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
 
@@ -86,14 +87,14 @@ public class GradleTaskExecutor implements TaskExecutor {
      */
     private static ProcessBuilder buildGradleProcess(ExecutionConfiguration config, ExecutionContext environment) {
         final Map<String, String> env = environment.getEnvironmentVariables();
-
-        final List<String> command = parse(config, env, environment.getWorkingDirectory());
+        final String workingDirectory = unifyPath(environment.getWorkingDirectory());
+        final List<String> command = parse(config, env, workingDirectory);
 
         logger.debug("Executing command: " + command);
 
         final ProcessBuilder builder = new ProcessBuilder(command);
         builder.environment().putAll(env);
-        builder.directory(new File(environment.getWorkingDirectory()));
+        builder.directory(new File(workingDirectory));
         return builder;
     }
 
@@ -155,5 +156,18 @@ public class GradleTaskExecutor implements TaskExecutor {
                 .withOption(GradleTaskConfig.DAEMON.getName(), "--daemon")
                 .withAdditionalOptions(GradleTaskConfig.ADDITIONAL_OPTIONS.getName())
                 .build();
+    }
+
+    /**
+     * Converts the slashes characters in paths into more interpolatable backslashes.
+     *
+     * @param path the path
+     * @return the unified path
+     */
+    private static String unifyPath(String path) {
+        if(path != null && !Paths.get(path).isAbsolute()) {
+            return path.replace("\\", File.separator);
+        }
+        return path;
     }
 }
