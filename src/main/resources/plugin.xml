@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<go-plugin id="gradle.task.plugin" version="${version}">
+<go-plugin id="gradle.task.plugin" version="1">
     <about>
         <name>Gradle Task Plugin</name>
         <version>${version}</version>
