@@ -28,9 +28,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import static io.jmnarloch.cd.go.plugin.gradle.GradleTaskConfig.MAKE_WRAPPER_EXECUTABLE;
-import static io.jmnarloch.cd.go.plugin.gradle.GradleTaskConfig.TASKS;
-import static io.jmnarloch.cd.go.plugin.gradle.GradleTaskConfig.USE_WRAPPER;
+import static io.jmnarloch.cd.go.plugin.gradle.GradleTaskConfig.*;
 import static java.lang.Boolean.FALSE;
 import static java.lang.Boolean.TRUE;
 import static java.util.Collections.singletonMap;
@@ -120,6 +118,25 @@ public class GradleTaskExecutorTest {
         final ExecutionContext executionContext = createExecutionContext("src\\test\\resources\\gradle");
         final Map<String, String> settings = new HashMap<>();
         settings.put(USE_WRAPPER.getName(), TRUE.toString());
+        final ExecutionConfiguration executionConfiguration = createExecutionConfig(settings);
+        final JobConsoleLogger jobConsoleLogger = createConsoleLogger();
+
+        // when
+        final ExecutionResult result = instance.execute(executionContext, executionConfiguration, jobConsoleLogger);
+
+        // then
+        assertNotNull(result);
+        assertTrue(result.isSuccess());
+    }
+
+    @Test
+    public void shouldBuildGradleProjectUsingWrapperInRelativeDirectory() throws Exception {
+
+        // given
+        final ExecutionContext executionContext = createExecutionContext("src\\test\\resources");
+        final Map<String, String> settings = new HashMap<>();
+        settings.put(USE_WRAPPER.getName(), TRUE.toString());
+        settings.put(RELATIVE_PATH.getName(),"gradle");
         final ExecutionConfiguration executionConfiguration = createExecutionConfig(settings);
         final JobConsoleLogger jobConsoleLogger = createConsoleLogger();
 

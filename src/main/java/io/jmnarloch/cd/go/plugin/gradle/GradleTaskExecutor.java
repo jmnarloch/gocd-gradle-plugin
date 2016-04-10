@@ -21,6 +21,7 @@ import io.jmnarloch.cd.go.plugin.api.executor.ExecutionConfiguration;
 import io.jmnarloch.cd.go.plugin.api.executor.ExecutionContext;
 import io.jmnarloch.cd.go.plugin.api.executor.ExecutionResult;
 import io.jmnarloch.cd.go.plugin.api.executor.TaskExecutor;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
 import java.io.File;
@@ -87,7 +88,10 @@ public class GradleTaskExecutor implements TaskExecutor {
      */
     private static ProcessBuilder buildGradleProcess(ExecutionConfiguration config, ExecutionContext environment) {
         final Map<String, String> env = environment.getEnvironmentVariables();
-        final String workingDirectory = unifyPath(environment.getWorkingDirectory());
+        String workingDirectory = unifyPath(environment.getWorkingDirectory());
+        workingDirectory = workingDirectory.endsWith(File.separator)?workingDirectory:workingDirectory+File.separator;
+        String relativePath = config.getProperty(GradleTaskConfig.RELATIVE_PATH.getName());
+        workingDirectory = StringUtils.isBlank(relativePath)?workingDirectory : unifyPath(workingDirectory+relativePath);
         final List<String> command = parse(config, env, workingDirectory);
 
         logger.debug("Executing command: " + command);
