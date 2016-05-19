@@ -35,9 +35,9 @@ The Gradle installation directory, needed only if wrapper isn't used and gradle 
 
 You may also specify GRADLE_HOME environment variable either for the specific build or entire Go Environment.
 
-### Use deamon
+### Use daemon
 
-Whether to run Gradle deamon for build.
+Whether to run Gradle daemon for build.
 
 ### Offline
 
