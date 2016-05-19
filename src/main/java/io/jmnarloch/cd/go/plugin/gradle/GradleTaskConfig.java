@@ -50,10 +50,10 @@ public enum GradleTaskConfig {
     TASKS("Tasks"),
 
     /**
-     * Whether to use run build through Gradle deamon.
+     * Whether to use run build through Gradle daemon.
      */
     @ConfigProperty
-    DAEMON("Deamon"),
+    DAEMON("Daemon"),
 
     /**
      * Whether to run the build in offline mode.
