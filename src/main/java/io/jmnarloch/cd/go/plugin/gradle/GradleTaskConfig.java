@@ -71,7 +71,13 @@ public enum GradleTaskConfig {
      * Additional options to be passed to Gradle process.
      */
     @ConfigProperty
-    ADDITIONAL_OPTIONS("AdditionalOptions");
+    ADDITIONAL_OPTIONS("AdditionalOptions"),
+
+    /**
+     * Relative directory from working directory
+     */
+    @ConfigProperty
+    RELATIVE_PATH("RelativePath");
 
     /**
      * The property name.
